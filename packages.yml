@@ -10,6 +10,7 @@
 
     - name: install development packages
       package: name={{ item }}
+               state=present
       with_items:
         - ack
         - autoconf
@@ -27,6 +28,7 @@
         - libevent-devel
         - libffi-devel
         - libtool
+        - libselinux-python
         - libxml2-devel
         - libyaml-devel
         - llvm-static
@@ -42,7 +44,7 @@
         - svn
         - tmux
         - tree
+        - util-linux-user
         - vim
         - xclip
         - zlib-devel
-        - zsh

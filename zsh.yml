@@ -1,0 +1,51 @@
+---
+- name: Set Up zsh
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install zsh and friends
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - git-core
+        - powerline
+        - zsh
+
+    - name: ensure the ~/src-hub directory is present
+      file: path=/home/{{ username }}/src-hub
+            state=directory
+
+    - name: clone oh-my-zsh
+      git: repo=https://github.com/robbyrussell/oh-my-zsh.git
+           dest=/home/{{ username }}/src-hub/oh-my-zsh
+           update=no
+
+    - name: clone dircolors-solarized
+      git: repo=https://github.com/seebi/dircolors-solarized.git
+           dest=/home/{{ username }}/src-hub/dircolors-solarized
+           update=no
+
+    - name: create symlink to oh-my-zsh
+      file: path=/home/{{ username }}/.oh-my-zsh
+            src=/home/{{ username }}/src-hub/oh-my-zsh
+            state=link
+
+    - name: check if .zshrc exists
+      stat: path=/home/{{ username }}/.zshrc
+      register: zshrc
+
+    - name: back up existing .zshrc file if it exists
+      when: zshrc.stat.exists
+      copy: src=/home/{{ username }}/.zshrc
+            dest=/home/{{ username }}/.zshrc-orig
+
+    - name: copy zshrc to user home
+      copy: src=zshrc
+            dest=/home/{{ username }}/.zshrc
+            force=yes
+
+    - name: change user shell to zsh
+      become: yes
+      become_user: root
+      command: chsh -s /bin/zsh "{{ username }}"
