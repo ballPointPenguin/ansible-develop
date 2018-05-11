@@ -1,0 +1,59 @@
+---
+- name: Set Up Vim
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install vim and requirements
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - ack
+        - ctags
+        - ruby
+        - rubygem-rake
+        - vim
+
+    - name: check if .vim exists
+      stat: path=/home/{{ username }}/.vim
+      register: vim_dir
+
+    - name: check if .vim is a git repo
+      when: vim_dir.stat.exists
+      stat: path=/home/{{ username }}/.vim/.git
+      register: vim_git
+
+    - name: backup .vim if it is not a repo
+      when: (vim_dir.stat.exists and vim_git.stat.isdir is not defined)
+      command: mv /home/{{ username }}/.vim /home/{{ username }}/.vim.backup
+
+    - name: ensure the ~/src-hub directory is present
+      file: path=/home/{{ username }}/src-hub
+            state=directory
+
+    - name: clone janus
+      git: repo=https://github.com/carlhuda/janus.git
+           dest=/home/{{ username }}/src-hub/janus
+           update=no
+
+    - name: create symlink to janus
+      file: path=/home/{{ username }}/.vim
+            src=/home/{{ username }}/src-hub/janus
+            state=link
+
+    - name: rake janus
+      shell: cd /home/{{ username }}/.vim && rake
+
+    - name: copy vimrc.after to user home
+      copy: src=vimrc.after
+            dest=/home/{{ username }}/.vimrc.after
+            force=no
+
+    - name: ensure the .janus directory is present
+      file: path=/home/{{ username }}/.janus
+            state=directory
+
+    - name: clone vim-colorschemes submodule
+      shell: cd /home/{{ username }}/.janus && git init && git submodule add
+             https://github.com/flazz/vim-colorschemes.git colorschemes
+             creates=/home/{{ username }}/.janus/colorschemes

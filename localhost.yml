@@ -4,4 +4,5 @@
 
 - import_playbook: packages.yml
 - import_playbook: docker.yml
+- import_playbook: vim.yml
 - import_playbook: zsh.yml
