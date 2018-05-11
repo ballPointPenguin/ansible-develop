@@ -1,0 +1,48 @@
+---
+- name: Install development packages
+  hosts: localhost
+  become: True
+  tasks:
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: install development packages
+      package: name={{ item }}
+      with_items:
+        - ack
+        - autoconf
+        - automake
+        - bison
+        - bzip2
+        - curl
+        - emacs
+        - gcc-c++
+        - git
+        - gmp-devel
+        - htop
+        - libbsd-devel
+        - libedit-devel
+        - libevent-devel
+        - libffi-devel
+        - libtool
+        - libxml2-devel
+        - libyaml-devel
+        - llvm-static
+        - make
+        - mariadb-devel
+        - openssl-devel
+        - patch
+        - pgadmin3
+        - postgresql-devel
+        - readline-devel
+        - redhat-rpm-config
+        - ruby-devel
+        - svn
+        - tmux
+        - tree
+        - vim
+        - xclip
+        - zlib-devel
+        - zsh
