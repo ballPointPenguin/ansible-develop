@@ -1,0 +1,58 @@
+# This isn't working
+---
+- name: Set Up Watchman
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install requirements
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - autoconf
+        - automake
+        - cryptopp-devel
+        - glibc-devel
+        - glibc-headers
+        - glibc-static
+        - inotify-tools
+        - libtool
+        - openssl-devel
+        - python-devel
+        - redhat-rpm-config
+
+    - name: ensure the /home/{{ username }}/src-hub directory is present
+      file: path=/home/{{ username }}/src-hub
+            state=directory
+
+    - name: clone watchman
+      git: repo=https://github.com/facebook/watchman.git
+           dest=/home/{{ username }}/src-hub/watchman
+           update=no
+           version=v4.9.0
+
+    - name: increase inotify values
+      become: True
+      become_user: root
+      copy: src=inotify
+            dest=/etc/sysctl.d/40-inotify.conf
+            force=yes
+
+    - name: make watchman
+      command: "{{ item }}"
+      args:
+        chdir: /home/{{ username }}/src-hub/watchman
+        creates: /home/{{ username }}/src-hub/watchman/watchman
+      with_items:
+        - ./autogen.sh
+        - ./configure
+        - make
+
+    - name: install watchman
+      become: True
+      become_user: root
+      command: make install
+      args:
+        chdir: /home/{{ username }}/src-hub/watchman
+        creates: /usr/local/bin/watchman
+

@@ -1,0 +1,3 @@
+fs.inotify.max_queued_events=65536
+fs.inotify.max_user_instances=512
+fs.inotify.max_user_watches=32768
