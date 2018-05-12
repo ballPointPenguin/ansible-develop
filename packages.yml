@@ -41,6 +41,7 @@
         - readline-devel
         - redhat-rpm-config
         - ruby-devel
+        - rxvt-unicode-256color
         - svn
         - tmux
         - tree

@@ -3,6 +3,12 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
+    - name: install system node
+      become: True
+      become_user: root
+      package: name=nodejs
+               state=present
+
     - name: ensure the ~/src-hub directory is present
       file: path=/home/{{ username }}/src-hub
             state=directory
@@ -20,7 +26,7 @@
     - name: set NVM_DIR in .zshrc
       lineinfile: dest=/home/{{ username}}/.zshrc
                   regexp='export NVM_DIR'
-                  line='export NVM_DIR="$HOME/.nvm"'
+                  line='export NVM_DIR="/home/{{ username }}/src-hub/nvm"'
 
     - name: source nvm in .zshrc
       lineinfile: dest=/home/{{ username }}/.zshrc

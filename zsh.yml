@@ -23,7 +23,7 @@
 
     - name: clone dircolors-solarized plugin
       git: repo=https://github.com/joel-porquet/zsh-dircolors-solarized
-           dest=/home/{{ username }}/src-hub/oh-my-zsh/custom/plugins
+           dest=/home/{{ username }}/src-hub/oh-my-zsh/custom/plugins/zsh-dircolors-solarized
 
     - name: create symlink to oh-my-zsh
       file: path=/home/{{ username }}/.oh-my-zsh
