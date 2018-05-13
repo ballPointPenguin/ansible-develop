@@ -1,0 +1,24 @@
+- name: Set Up Watchman
+  hosts: localhost
+  become: True
+  become_user: root
+  tasks:
+    - name: set up vscode repo
+      yum_repository:
+        name: VisualStudioCode
+        description: Microsoft VS Code Repo
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+        enabled: yes
+        gpgcheck: yes
+
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: install vs code
+      package:
+        name: code
+        state: present
+

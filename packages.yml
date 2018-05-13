@@ -18,7 +18,9 @@
         - bison
         - bzip2
         - curl
+        - elixir
         - emacs
+        - erlang
         - gcc-c++
         - git
         - gmp-devel
