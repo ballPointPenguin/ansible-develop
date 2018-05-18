@@ -17,13 +17,16 @@
         - automake
         - bison
         - bzip2
+        - chrome-gnome-shell
         - curl
+        - dep
         - elixir
         - emacs
         - erlang
         - gcc-c++
         - git
         - gmp-devel
+        - go
         - htop
         - libbsd-devel
         - libedit-devel

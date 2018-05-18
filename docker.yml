@@ -3,13 +3,29 @@
   hosts: localhost
   become: True
   tasks:
-    - name: install docker packages
-      package: name={{ item }}
-      with_items:
-        - docker
-        - docker-compose
+    - name: install dnf-plugins-core
+      package: name=dnf-plugins-core
+               state=present
 
-    - name: create the docker group
+    - name: set up docker repo
+      yum_repository:
+        name: "Docker CE Stable - $basearch"
+        description: Docker CE Stable Repo
+        baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
+        gpgkey: https://download.docker.com/linux/fedora/gpg
+        gpgcheck: yes
+        enabled: yes
+
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: install docker-ce
+      package: name=docker-ce
+               state=present
+
+    - name: ensure the docker group exists
       group: name=docker
              state=present
 

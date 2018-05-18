@@ -1,0 +1,34 @@
+---
+- name: Set up erlang and elixir
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install erlang and elixir
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - erlang
+        - elixir
+
+    - name: ensure the ~/src-hub directory is present
+      file: path=/home/{{ username }}/src-hub
+            state=directory
+
+    - name: clone rebar3
+      git: repo=https://github.com/erlang/rebar3.git
+           dest=/home/{{ username }}/src-hub/rebar3
+
+    - name: run rebar3 bootstrap
+      command: ./bootstrap
+      args:
+        chdir: /home/{{ username }}/src-hub/rebar3
+
+    - name: ensure the ~/bin directory is present
+      file: path=/home/{{ username }}/bin
+            state=directory
+
+    - name: symlink rebar3 into ~/bin/
+      file: path=/home/{{ username }}/bin/rebar3
+            src=/home/{{ username }}/src-hub/rebar3/rebar3
+            state=link
