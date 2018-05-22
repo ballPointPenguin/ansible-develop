@@ -7,6 +7,7 @@
 - import_playbook: docker.yml
 - import_playbook: erlang.yml
 - import_playbook: node.yml
+- import_playbook: rpmfusion.yml
 - import_playbook: snap.yml
 - import_playbook: vim.yml
 - import_playbook: vscode.yml

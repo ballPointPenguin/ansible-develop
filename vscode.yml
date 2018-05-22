@@ -1,4 +1,4 @@
-- name: Set Up Watchman
+- name: Install Visual Studio Code
   hosts: localhost
   become: True
   become_user: root
