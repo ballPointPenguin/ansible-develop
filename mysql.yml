@@ -1,0 +1,14 @@
+- name: Install MySQL and Extras
+  hosts: localhost
+  become: True
+  become_user: root
+  tasks:
+    - name: install MySQL from Oracle repo
+      dnf:
+        name: https://dev.mysql.com/get/mysql80-community-release-fc28-1.noarch.rpm
+        state: present
+
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest

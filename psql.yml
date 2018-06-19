@@ -1,0 +1,13 @@
+---
+- name: Install PostgreSQL and Extras
+  hosts: localhost
+  become: True
+  become_user: root
+  tasks:
+    - name: install postgresql packages
+      package: name={{ item }}
+      with_items:
+        - pgadmin3
+        - postgresql
+        - postgresql-server
+
