@@ -9,5 +9,14 @@
       with_items:
         - pgadmin3
         - postgresql
-        - postgresql-server
+        - postgresql-contrib
 
+    - name: ensure database exists
+      command: postgresql-setup --initdb
+      args:
+        creates: /var/lib/pgsql/data/base
+
+    - name: enable postgresql service
+      service: name=postgresql
+               enabled=yes
+               state=started
