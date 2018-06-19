@@ -7,6 +7,7 @@
 - import_playbook: docker.yml
 - import_playbook: erlang.yml
 - import_playbook: node.yml
+- import_playbook: phoenix.yml
   import_playbook: psql.yml
 - import_playbook: rpmfusion.yml
 - import_playbook: snap.yml

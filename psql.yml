@@ -20,3 +20,18 @@
       service: name=postgresql
                enabled=yes
                state=started
+
+    - name: enable password authentication on local
+      lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                  regexp='local\s+all\s+all\s+peer'
+                  line='local  all  all    md5'
+      notify: restart postgresql
+
+      lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                  regexp='host\s+all\s+all\s+127.0.0.1/32\s+ident'
+                  line='host  all  all  127.0.0.1/32  md5'
+      notify: restart postgresql
+
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted

@@ -1,0 +1,19 @@
+---
+- name: Install Phoenix framework for Elixir
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install/update hex
+      command: mix local.hex --force
+
+    - name: install/update phx
+      command: mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+
+    - name: install/update rebar3
+      command: mix local.rebar --force
+
+    - name: install inotify-tools
+      become: True
+      become_user: root
+      package: name=inotify-tools
+               state=present
