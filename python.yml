@@ -1,0 +1,8 @@
+---
+- name: Set up Python
+  hosts: localhost
+  become: True
+  tasks:
+    - name: install pipenv
+      package: name=pipenv
+               state=present
