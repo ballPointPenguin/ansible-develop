@@ -1,8 +1,21 @@
 ---
 - name: Set up Python
   hosts: localhost
-  become: True
+  become_user: "{{ username }}"
   tasks:
-    - name: install pipenv
-      package: name=pipenv
+    - name: install packages
+      become: True
+      become_user: root
+      package: name={{ item }}
                state=present
+      with_items:
+        - pipenv
+        - python2-pip
+        - python2-virtualenv
+        - python3-pip
+        - python3-virtualenv
+
+    - name: install aws-cli
+      pip:
+        name: awscli
+        virtualenv: /home/{{ username }}
