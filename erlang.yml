@@ -23,6 +23,7 @@
       command: ./bootstrap
       args:
         chdir: /home/{{ username }}/src-hub/rebar3
+        creates: /home/{{ username }}/src-hub/rebar3/_build
 
     - name: ensure the ~/bin directory is present
       file: path=/home/{{ username }}/bin
