@@ -27,6 +27,10 @@
       file: path=/home/{{ username }}/src
             state=directory
 
+    - name: ensure the ~/.terraform.d/plugins directory is present
+      file: path=/home/{{ username }}/.terraform.d/plugins
+            state=directory
+
     - name: download terraform zipfile
       get_url:
         url: https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
@@ -58,7 +62,7 @@
     - name: symlink to terraform-provider-ct bin
       file:
         src: /home/{{ username }}/src/terraform-provider-ct-v0.3.0-linux-amd64/terraform-provider-ct
-        dest: /home/{{ username }}/bin/terraform-provider-ct
+        dest: /home/{{ username }}/.terraform.d/plugins/terraform-provider-ct
         state: link
 
     - name: download get_helm script
