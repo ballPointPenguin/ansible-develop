@@ -9,7 +9,6 @@
       package: name={{ item }}
                state=present
       with_items:
-        - kubernetes-client
         - pipenv
         - python2-pip
         - python2-virtualenv
@@ -76,4 +75,39 @@
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
+
+    - name: add the google cloud repository
+      become: True
+      become_user: root
+      yum_repository:
+        baseurl: https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+        description: Google Cloud SDK
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        name: google-cloud-sdk
+        repo_gpgcheck: yes
+
+    - name: remove kubernetes-client
+      become: True
+      become_user: root
+      package:
+        name: kubernetes-client
+        state: absent
+
+    - name: upgrade all packages
+      become: True
+      become_user: root
+      package:
+        name: "*"
+        state: latest
+
+    - name: install google cloud sdk packages
+      become: True
+      become_user: root
+      package: name={{ item }}
+               state=present
+      with_items:
+        - google-cloud-sdk
+        - kubectl
 
