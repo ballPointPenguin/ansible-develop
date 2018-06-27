@@ -1,0 +1,59 @@
+---
+- name: Set up some Infrastructure / DevOps tools
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install packages
+      become: True
+      become_user: root
+      package: name={{ item }}
+               state=present
+      with_items:
+        - kubernetes-client
+        - pipenv
+        - python2-pip
+        - python2-virtualenv
+        - python3-pip
+        - python3-virtualenv
+
+    - name: install aws-cli
+      pip:
+        name: awscli
+        virtualenv: /home/{{ username }}
+
+    - name: ensure the /home/{{ username }}/bin directory is present
+      file: path=/home/{{ username }}/bin
+            state=directory
+
+    - name: ensure the /home/{{ username }}/src directory is present
+      file: path=/home/{{ username }}/src
+            state=directory
+
+    - name: download terraform zipfile
+      get_url:
+        url: https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
+        dest: /home/{{ username }}/src/terraform_0.11.7_linux_amd64.zip
+
+    - name: unzip terraform
+      unarchive:
+        src: /home/{{ username }}/src/terraform_0.11.7_linux_amd64.zip
+        dest: /home/{{ username }}/src
+        remote_src: True
+
+    - name: symlink to terraform bin
+      file:
+        src: /home/{{ username }}/src/terraform
+        dest: /home/{{ username }}/bin/terraform
+        state: link
+
+    - name: download get_helm script
+      get_url:
+        url: https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+        dest: /home/{{ username }}/src/get_helm.sh
+        mode: 0700
+
+    - name: execute the get_helm script
+      shell: /home/{{ username }}/src/get_helm.sh
+      args:
+        executable: /bin/bash
+        creates: /usr/local/bin/helm
