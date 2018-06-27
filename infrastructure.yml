@@ -13,37 +13,52 @@
         - pipenv
         - python2-pip
         - python2-virtualenv
-        - python3-pip
-        - python3-virtualenv
 
     - name: install aws-cli
       pip:
         name: awscli
-        virtualenv: /home/{{ username }}
+        extra_args: --upgrade --user
 
-    - name: ensure the /home/{{ username }}/bin directory is present
+    - name: ensure the ~/bin directory is present
       file: path=/home/{{ username }}/bin
             state=directory
 
-    - name: ensure the /home/{{ username }}/src directory is present
+    - name: ensure the ~/src directory is present
       file: path=/home/{{ username }}/src
             state=directory
 
     - name: download terraform zipfile
       get_url:
         url: https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
-        dest: /home/{{ username }}/src/terraform_0.11.7_linux_amd64.zip
+        dest: /home/{{ username }}/src/
 
     - name: unzip terraform
       unarchive:
         src: /home/{{ username }}/src/terraform_0.11.7_linux_amd64.zip
-        dest: /home/{{ username }}/src
+        dest: /home/{{ username }}/src/
         remote_src: True
 
     - name: symlink to terraform bin
       file:
         src: /home/{{ username }}/src/terraform
         dest: /home/{{ username }}/bin/terraform
+        state: link
+
+    - name: download terraform-provider-ct tarfile
+      get_url:
+        url: https://github.com/coreos/terraform-provider-ct/releases/download/v0.3.0/terraform-provider-ct-v0.3.0-linux-amd64.tar.gz
+        dest: /home/{{ username }}/src/
+
+    - name: untar terraform-provider-ct
+      unarchive:
+        src: /home/{{ username }}/src/terraform-provider-ct-v0.3.0-linux-amd64.tar.gz
+        dest: /home/{{ username }}/src/
+        remote_src: True
+
+    - name: symlink to terraform-provider-ct bin
+      file:
+        src: /home/{{ username }}/src/terraform-provider-ct-v0.3.0-linux-amd64/terraform-provider-ct
+        dest: /home/{{ username }}/bin/terraform-provider-ct
         state: link
 
     - name: download get_helm script
@@ -57,3 +72,4 @@
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
+
