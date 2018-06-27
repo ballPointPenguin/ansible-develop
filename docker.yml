@@ -9,12 +9,12 @@
 
     - name: set up docker repo
       yum_repository:
-        name: "Docker CE Stable - $basearch"
-        description: Docker CE Stable Repo
         baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
-        gpgkey: https://download.docker.com/linux/fedora/gpg
-        gpgcheck: yes
+        description: Docker CE Stable Repo
         enabled: yes
+        gpgcheck: yes
+        gpgkey: https://download.docker.com/linux/fedora/gpg
+        name: "Docker CE Stable - $basearch"
 
     - name: upgrade all packages
       package:

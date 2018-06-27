@@ -5,12 +5,12 @@
   tasks:
     - name: set up vscode repo
       yum_repository:
-        name: VisualStudioCode
-        description: Microsoft VS Code Repo
         baseurl: https://packages.microsoft.com/yumrepos/vscode
-        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+        description: Microsoft VS Code Repo
         enabled: yes
         gpgcheck: yes
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+        name: VisualStudioCode
 
     - name: upgrade all packages
       package:
