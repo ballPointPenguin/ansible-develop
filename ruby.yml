@@ -1,0 +1,21 @@
+---
+- name: Install Ruby and friends
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install ruby
+      become: True
+      become_user: root
+      package: name={{ item }}
+               state=latest
+      with_items:
+        - ruby-devel
+        - zlib-devel
+
+    - name: install user gems
+      command: gem install {{ item }}
+      args:
+        creates: /home/{{ username }}/bin/{{ item }}
+      with_items:
+        - bundler
+        - rake
