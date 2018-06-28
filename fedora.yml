@@ -1,0 +1,19 @@
+---
+- name: Run all the local playbooks
+  hosts: localhost
+
+- import_playbook: fedora/packages.yml
+
+- import_playbook: fedora/docker.yml
+- import_playbook: fedora/erlang.yml
+- import_playbook: fedora/infrastructure.yml
+- import_playbook: fedora/mysql.yml
+- import_playbook: fedora/node.yml
+- import_playbook: fedora/phoenix.yml
+- import_playbook: fedora/psql.yml
+- import_playbook: fedora/rpmfusion.yml
+- import_playbook: fedora/ruby.yml
+- import_playbook: fedora/vim.yml
+- import_playbook: fedora/vscode.yml
+- import_playbook: fedora/watchman.yml
+- import_playbook: fedora/zsh.yml
