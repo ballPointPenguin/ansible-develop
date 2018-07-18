@@ -7,14 +7,11 @@
       package: name=dnf-plugins-core
                state=present
 
-    - name: set up docker repo
-      yum_repository:
-        baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
-        description: Docker CE Stable Repo
-        enabled: yes
-        gpgcheck: yes
-        gpgkey: https://download.docker.com/linux/fedora/gpg
-        name: "Docker CE Stable - $basearch"
+    - name: set up docker-ce repo
+      command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+      args:
+        creates: /etc/yum.repos.d/docker-ce.repo
+        warn: no
 
     - name: upgrade all packages
       package:
@@ -23,6 +20,10 @@
 
     - name: install docker-ce
       package: name=docker-ce
+               state=present
+
+    - name: install docker-compose
+      package: name=docker-compose
                state=present
 
     - name: ensure the docker group exists

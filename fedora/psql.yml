@@ -10,6 +10,7 @@
         - pgadmin3
         - postgresql
         - postgresql-contrib
+        - postgresql-server
 
     - name: ensure database exists
       command: postgresql-setup --initdb
@@ -27,6 +28,7 @@
                   line='local  all  all    md5'
       notify: restart postgresql
 
+    - name: enable password authentication on host
       lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
                   regexp='host\s+all\s+all\s+127.0.0.1/32\s+ident'
                   line='host  all  all  127.0.0.1/32  md5'
