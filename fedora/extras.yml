@@ -1,0 +1,36 @@
+---
+- name: Install Fedora extas
+  hosts: localhost
+  become: True
+  tasks:
+    - name: add rpmfusion free repos
+      command: rpm -ivh https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-28.noarch.rpm
+      args:
+        creates: /etc/yum.repos.d/rpmfusion-free.repo
+
+    - name: add rpmfusion nonfree repos
+      command: rpm -ivh https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-28.noarch.rpm
+      args:
+        creates: /etc/yum.repos.d/rpmfusion-nonfree.repo
+
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: install media codecs
+      package: name={{ item }}
+               state=present
+      with_items:
+        - ffmpeg
+        - gstreamer-ffmpeg
+        - gstreamer-plugins-bad
+        - gstreamer-plugins-base
+        - gstreamer-plugins-good-extras
+        - gstreamer-plugins-ugly
+        - gstreamer1-plugins-bad-freeworld
+        - gstreamer1-plugins-base
+        - gstreamer1-plugins-good-extras
+        - gstreamer1-plugins-ugly
+        - vlc
+
