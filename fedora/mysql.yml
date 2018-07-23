@@ -8,6 +8,11 @@
         name: https://dev.mysql.com/get/mysql80-community-release-fc28-1.noarch.rpm
         state: present
 
+    - name: install MySQL Workbench from Oracle repo (fedora 27)
+      dnf:
+        name: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-6.3.10-1.fc27.x86_64.rpm
+        state: present
+
     - name: upgrade all packages
       package:
         name: "*"
