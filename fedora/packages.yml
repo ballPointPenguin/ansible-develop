@@ -28,6 +28,7 @@
         - gmp-devel
         - go
         - htop
+        - jq
         - libbsd-devel
         - libedit-devel
         - libevent-devel
