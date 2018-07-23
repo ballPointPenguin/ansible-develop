@@ -17,3 +17,9 @@
       package:
         name: "*"
         state: latest
+
+    - name: install additional packages
+      package: name={{ item }}
+      with_items:
+        - mysql-community-client
+        - mysql-community-server
