@@ -1,0 +1,42 @@
+set background=dark
+set exrc
+set modifiable
+set secure
+set t_Co=256
+set wrap
+
+" Color Scheme!
+
+"colorscheme 256-jungle
+"colorscheme Chasing_Logic
+"colorscheme OceanicNext
+"colorscheme solarized
+colorscheme vydark
+
+" Disable auto-comment insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Syntax Checking
+
+syntax enable
+
+" check on save
+let g:syntastic_mode_map = { "mode": "active" }
+
+" Don't show error location list by default
+let g:syntastic_auto_loc_list = 0
+
+" Use rubocop
+let g:syntastic_ruby_checkers = ['rubocop']
+
+" User EditorConfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" Use eslint
+let g:syntastic_javascript_checkers = ['eslint']
+
+
+" Set line length coloring
+"execute "set colorcolumn=" . join(range(81,335), ',')
+execute "set colorcolumn=101"
+highlight ColorColumn guibg=#194550

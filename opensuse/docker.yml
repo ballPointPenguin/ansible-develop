@@ -1,0 +1,31 @@
+---
+- name: Set Up Docker
+  hosts: localhost
+  become: True
+  tasks:
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: install docker & friends
+      package: name={{ item }}
+      with_items:
+        - docker
+        - docker-bash-completion
+        - docker-zsh-completion
+        - python3-docker-compose
+
+    - name: ensure the docker group exists
+      group: name=docker
+             state=present
+
+    - name: add user to docker group
+      user: name={{ username }}
+            groups=docker
+            append=yes
+
+    - name: enable docker service
+      service: name=docker
+               enabled=yes
+               state=started

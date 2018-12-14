@@ -1,0 +1,57 @@
+---
+- name: Install PostgreSQL and Extras
+  hosts: localhost
+  become: True
+  become_user: root
+  tasks:
+    - name: install postgresql packages
+      package: name={{ item }}
+      with_items:
+        - libpqxx-devel
+        - pgadmin4
+        - postgresql
+        - postgresql-contrib
+        - postgresql-server
+
+    - name: ensure database exists
+      command: postgresql-setup --initdb
+      args:
+        creates: /var/lib/pgsql/data/base
+
+    - name: enable postgresql service
+      service: name=postgresql
+               enabled=yes
+               state=started
+
+    - name: enable password authentication on local
+      lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                  backrefs=true
+                  line='local  all  all  md5'
+                  regexp='local\s+all\s+all\s+peer'
+      notify: restart postgresql
+
+    - name: enable password authentication on host
+      lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                  backrefs=true
+                  line='host  all  all  127.0.0.1/32  md5'
+                  regexp='host\s+all\s+all\s+127.0.0.1/32\s+ident'
+      notify: restart postgresql
+
+    - name: enable password authentication on host ipv6
+      lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                  backrefs=true
+                  line='host  all  all  ::1/128  md5'
+                  regexp='host\s+all\s+all\s+::1/128\s+ident'
+      notify: restart postgresql
+
+    - name: enable peer authentication for local postgres
+      lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+                  firstmatch=yes
+                  insertbefore='^local\s+all\s'
+                  line='local  postgres  postgres  peer'
+                  state=present
+      notify: restart postgresql
+
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted

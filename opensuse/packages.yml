@@ -1,0 +1,42 @@
+---
+- name: Install development packages
+  hosts: localhost
+  become: True
+  tasks:
+    - name: upgrade all packages
+      package:
+        name: "*"
+        state: latest
+
+    - name: install development packages
+      package: name={{ item }}
+               state=present
+      with_items:
+        - ack
+        - autoconf
+        - automake
+        - bison
+        - bzip2
+        - curl
+        - emacs
+        - erlang
+        - gcc-c++
+        - git
+        - git-svn
+        - go
+        - htop
+        - make
+        - mariadb
+        - mr
+        - openssl-devel
+        - patch
+        - pgadmin4
+        - postgresql-devel
+        - readline-devel
+        - rxvt-unicode
+        - sqlite-devel
+        - tmux
+        - tree
+        - vim
+        - xclip
+        - zlib-devel

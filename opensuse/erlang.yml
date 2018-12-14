@@ -1,0 +1,45 @@
+---
+- name: Set up erlang and elixir
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: add elixir repository
+      become: True
+      become_user: root
+      zypper_repository:
+        auto_import_keys: yes
+        name: 'devel:languages:erlang'
+        repo: 'https://download.opensuse.org/repositories/devel:/languages:/erlang/bleeding_edge_erlang_Factory/'
+
+    - name: add erlang Factory repository
+      become: True
+      become_user: root
+      zypper_repository:
+        auto_import_keys: yes
+        name: 'devel:languages:erlang:Factory'
+        repo: 'https://download.opensuse.org/repositories/devel:/languages:/erlang:/Factory/openSUSE_Factory/'
+
+    - name: refresh repositories
+      become: True
+      become_user: root
+      zypper_repository:
+        repo: '*'
+        runrefresh: yes
+
+    - name: install erlang, elixir, and rebar
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - elixir
+        - erlang
+        - erlang-rebar
+        - inotify-tools
+
+  #   This is causing problems due to some esoteric DNS issue
+  # - name: install/update hex
+  #   command: mix local.hex --force
+
+    - name: install/update phoenix
+      command: mix archive.install \
+        https://github.com/phoenixframework/archives/raw/master/phx_new.ez
