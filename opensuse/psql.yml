@@ -4,14 +4,14 @@
   become: True
   become_user: root
   tasks:
-    #- name: install postgresql packages
-      #package: name={{ item }}
-      #with_items:
-        #- libpqxx-devel
-        #- pgadmin4
-        #- postgresql
-        #- postgresql-contrib
-        #- postgresql-server
+    - name: install postgresql packages
+      package: name={{ item }}
+      with_items:
+        - libpqxx-devel
+        - pgadmin4
+        - postgresql
+        - postgresql-contrib
+        - postgresql-server
 
     - name: enable postgresql service
       service: name=postgresql

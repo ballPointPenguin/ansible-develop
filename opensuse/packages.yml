@@ -3,63 +3,48 @@
   hosts: localhost
   become: True
   tasks:
+    - name: refresh repositories
+      become: True
+      become_user: root
+      zypper_repository:
+        repo: '*'
+        runrefresh: yes
+
     - name: upgrade all packages
       package:
         name: "*"
         state: latest
+
+    - name: fix packagekit (remove old)
+      zypper:
+        force: yes
+        name: PackageKit-branding-openSUSE
+        state: absent
+
+    - name: fix packagekit (install new)
+      zypper:
+        force: yes
+        name: PackageKit-branding-upstream
+        state: present
 
     - name: install development packages
       package: name={{ item }}
                state=present
       with_items:
         - ack
-        - autoconf
-        - automake
         - bison
         - bzip2
-        - ctags
         - curl
-        - docker
-        - docker-bash-completion
-        - docker-zsh-completion
-        - emacs
-        - erlang
-        - flatpak
         - gcc-c++
-        - gdbm-devel
         - git
-        - git-core
         - git-svn
-        - glibc-devel
         - go
         - htop
-        - inotify-tools
-        - libopenssl-devel
-        - libpqxx-devel
-        - libtool
-        - libyaml-devel
         - make
         - mariadb
         - mr
-        - ncurses-devel
-        - nodejs10
-        - openssl-devel
         - patch
-        - pgadmin4
-        - postgresql
-        - postgresql-contrib
-        - postgresql-devel
-        - postgresql-server
-        - powerline
-        - python-devel
-        - python3-docker-compose
-        - readline-devel
-        - ruby
         - rxvt-unicode
-        - sqlite3-devel
         - tmux
         - tree
-        - vim
         - xclip
-        - zlib-devel
-        - zsh

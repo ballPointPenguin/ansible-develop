@@ -3,19 +3,19 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    #- name: install rbenv prerequisites
-      #become: True
-      #become_user: root
-      #package: name={{ item }}
-               #state=latest
-      #with_items:
-        #- automake
-        #- gdbm-devel
-        #- libyaml-devel
-        #- ncurses-devel
-        #- readline-devel
-        #- sqlite3-devel
-        #- zlib-devel
+    - name: install rbenv prerequisites
+      become: True
+      become_user: root
+      package: name={{ item }}
+               state=latest
+      with_items:
+        - automake
+        - gdbm-devel
+        - libyaml-devel
+        - ncurses-devel
+        - readline-devel
+        - sqlite3-devel
+        - zlib-devel
 
     - name: clone rbenv
       git: repo=git://github.com/rbenv/rbenv.git
@@ -53,9 +53,13 @@
   #   command: source /home/{{ username }}/.oh-my-zsh/custom/rbenv.zsh
 
     - name: install ruby 2.5.3
+      command: rbenv install 2.5.3
+      args:
+        creates: /home/{{ username }}/.rbenv/versions/2.5.3/
+
+    - name: use ruby 2.5.3
       command: "{{ item }}"
       with_items:
-        - rbenv install 2.5.3
         - rbenv rehash
         - rbenv global 2.5.3
 

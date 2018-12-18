@@ -3,14 +3,14 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    #- name: install zsh and friends
-      #become: True
-      #become_user: root
-      #package: name={{ item }}
-      #with_items:
-        #- git-core
-        #- powerline
-        #- zsh
+    - name: install zsh and friends
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - git-core
+        - powerline
+        - zsh
 
     - name: ensure the ~/src-hub directory is present
       file: path=/home/{{ username }}/src-hub

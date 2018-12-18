@@ -3,12 +3,12 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    #- name: install flatpak
-      #become: True
-      #become_user: root
-      #package:
-        #name: flatpak
-        #state: latest
+    - name: install flatpak
+      become: True
+      become_user: root
+      package:
+        name: flatpak
+        state: latest
 
         # Have to do this manually until ansible 2.8 fixes arrive
     - name: add flathub remote

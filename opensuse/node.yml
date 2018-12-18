@@ -3,11 +3,11 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    #- name: install system node
-      #become: True
-      #become_user: root
-      #package: name=nodejs10
-               #state=latest
+    - name: install system node
+      become: True
+      become_user: root
+      package: name=nodejs10
+               state=latest
 
     - name: ensure the ~/src-hub directory is present
       file: path=/home/{{ username }}/src-hub
