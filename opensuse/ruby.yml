@@ -3,22 +3,66 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    - name: install ruby
-      become: True
-      become_user: root
-      package: name={{ item }}
-               state=latest
-      with_items:
-        - ruby-devel
-        - zlib-devel
+    #- name: install rbenv prerequisites
+      #become: True
+      #become_user: root
+      #package: name={{ item }}
+               #state=latest
+      #with_items:
+        #- automake
+        #- gdbm-devel
+        #- libyaml-devel
+        #- ncurses-devel
+        #- readline-devel
+        #- sqlite3-devel
+        #- zlib-devel
 
-    - name: update system gems
-      command: gem update --system
+    - name: clone rbenv
+      git: repo=git://github.com/rbenv/rbenv.git
+           dest=/home/{{ username }}/src-hub/rbenv
+           update=yes
+
+    - name: create symlink to rbenv
+      file: path=/home/{{ username }}/.rbenv
+            src=/home/{{ username }}/src-hub/rbenv
+            state=link
+
+    - name: make rbenv
+      command: "{{ item }}"
+      args:
+        chdir: /home/{{ username }}/.rbenv
+      with_items:
+        - ./src/configure
+        - make -C src
+
+    - name: ensure the .rbenv/plugins directory is present
+      file: path=/home/{{ username }}/.rbenv/plugins
+            state=directory
+
+    - name: clone ruby-build plugin
+      git: repo=git://github.com/rbenv/ruby-build.git
+           dest=/home/{{ username }}/.rbenv/plugins/ruby-build
+
+    - name: copy rbenv.zsh to oh-my-zsh custom dir
+      copy: src=rbenv.zsh
+            dest=/home/{{ username }}/.oh-my-zsh/custom/
+            force=no
+
+  # Something isn't right with this. The zsh rbenv plugin may be enough
+  # - name: source rbenv.zsh
+  #   command: source /home/{{ username }}/.oh-my-zsh/custom/rbenv.zsh
+
+    - name: install ruby 2.5.3
+      command: "{{ item }}"
+      with_items:
+        - rbenv install 2.5.3
+        - rbenv rehash
+        - rbenv global 2.5.3
 
     - name: install user gems
       command: gem install {{ item }}
       args:
-        creates: /home/{{ username }}/bin/{{ item }}
+        creates: /home/{{ username }}/.rbenv/versions/2.5.3/lib/ruby/gems/{{ item }}
       with_items:
         - bundler
         - rake

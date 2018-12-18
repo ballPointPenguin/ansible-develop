@@ -3,15 +3,15 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    - name: install vim and requirements
-      become: True
-      become_user: root
-      package: name={{ item }}
-      with_items:
-        - ack
-        - ctags
-        - ruby
-        - vim
+    #- name: install vim and requirements
+      #become: True
+      #become_user: root
+      #package: name={{ item }}
+      #with_items:
+        #- ack
+        #- ctags
+        #- ruby
+        #- vim
 
     - name: check if .vim exists
       stat: path=/home/{{ username }}/.vim

@@ -4,24 +4,24 @@
   become: True
   become_user: root
   tasks:
-    - name: install postgresql packages
-      package: name={{ item }}
-      with_items:
-        - libpqxx-devel
-        - pgadmin4
-        - postgresql
-        - postgresql-contrib
-        - postgresql-server
-
-    - name: ensure database exists
-      command: postgresql-setup --initdb
-      args:
-        creates: /var/lib/pgsql/data/base
+    #- name: install postgresql packages
+      #package: name={{ item }}
+      #with_items:
+        #- libpqxx-devel
+        #- pgadmin4
+        #- postgresql
+        #- postgresql-contrib
+        #- postgresql-server
 
     - name: enable postgresql service
       service: name=postgresql
                enabled=yes
                state=started
+
+    - name: ensure database exists
+      command: postgresql-setup --initdb
+      args:
+        creates: /var/lib/pgsql/data/base
 
     - name: enable password authentication on local
       lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf

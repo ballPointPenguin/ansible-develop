@@ -17,26 +17,49 @@
         - automake
         - bison
         - bzip2
+        - ctags
         - curl
+        - docker
+        - docker-bash-completion
+        - docker-zsh-completion
         - emacs
         - erlang
+        - flatpak
         - gcc-c++
+        - gdbm-devel
         - git
+        - git-core
         - git-svn
+        - glibc-devel
         - go
         - htop
+        - inotify-tools
+        - libopenssl-devel
+        - libpqxx-devel
+        - libtool
+        - libyaml-devel
         - make
         - mariadb
         - mr
+        - ncurses-devel
+        - nodejs10
         - openssl-devel
         - patch
         - pgadmin4
+        - postgresql
+        - postgresql-contrib
         - postgresql-devel
+        - postgresql-server
+        - powerline
+        - python-devel
+        - python3-docker-compose
         - readline-devel
+        - ruby
         - rxvt-unicode
-        - sqlite-devel
+        - sqlite3-devel
         - tmux
         - tree
         - vim
         - xclip
         - zlib-devel
+        - zsh

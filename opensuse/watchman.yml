@@ -3,18 +3,18 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    - name: install requirements
-      become: True
-      become_user: root
-      package: name={{ item }}
-      with_items:
-        - autoconf
-        - automake
-        - glibc-devel
-        - inotify-tools
-        - libopenssl-devel
-        - libtool
-        - python-devel
+    #- name: install requirements
+      #become: True
+      #become_user: root
+      #package: name={{ item }}
+      #with_items:
+        #- autoconf
+        #- automake
+        #- glibc-devel
+        #- inotify-tools
+        #- libopenssl-devel
+        #- libtool
+        #- python-devel
 
     - name: ensure the /home/{{ username }}/src-hub directory is present
       file: path=/home/{{ username }}/src-hub

@@ -3,34 +3,35 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    - name: install flatpak
-      become: True
-      become_user: root
-      package:
-        name: flatpak
-        state: latest
+    #- name: install flatpak
+      #become: True
+      #become_user: root
+      #package:
+        #name: flatpak
+        #state: latest
 
+        # Have to do this manually until ansible 2.8 fixes arrive
     - name: add flathub remote
-      flatpak_remote:
-        name: flathub
-        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-        method: user
+      command: flatpak remote-add --if-not-exists --user \
+        flathub https://flathub.org/repo/flathub.flatpakrepo
+      #   flatpak_remote:
+      #     name: flathub
+      #     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
     - name: install Flatpak Apps
       flatpak:
         name: "{{ item }}"
         method: user
-        with_items:
-          - com.discordapp.Discord
-          - com.getpostman.Postman
-          - com.google.AndroidStudio
-          - com.skype.Client
-          - com.slack.Slack
-          - com.visualstudio.code
-          - org.audacityteam.Audacity
-          - org.filezillaproject.Filezilla
-          - org.gimp.GIMP
-          - org.gnome.evince
-          - org.libreoffice.LibreOffice
-          - org.videolan.VLC
+      loop:
+        - com.discordapp.Discord
+        - com.getpostman.Postman
+        - com.google.AndroidStudio
+        - com.skype.Client
+        - com.slack.Slack
+        - com.visualstudio.code
+        - org.audacityteam.Audacity
+        - org.filezillaproject.Filezilla
+        - org.gimp.GIMP
+        - org.videolan.VLC
+        - org.libreoffice.LibreOffice
 

@@ -3,18 +3,18 @@
   hosts: localhost
   become: True
   tasks:
-    - name: upgrade all packages
-      package:
-        name: "*"
-        state: latest
+    #- name: upgrade all packages
+      #package:
+        #name: "*"
+        #state: latest
 
-    - name: install docker & friends
-      package: name={{ item }}
-      with_items:
-        - docker
-        - docker-bash-completion
-        - docker-zsh-completion
-        - python3-docker-compose
+    #- name: install docker & friends
+      #package: name={{ item }}
+      #with_items:
+        #- docker
+        #- docker-bash-completion
+        #- docker-zsh-completion
+        #- python3-docker-compose
 
     - name: ensure the docker group exists
       group: name=docker
