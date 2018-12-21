@@ -1,31 +1,61 @@
 ---
 - name: Setup Flatpak and Install Apps
   hosts: localhost
-  become_user: "{{ username }}"
+  become: True
+  become_user: root
   tasks:
+    - name: add backports repo
+      apt_repository:
+        repo: deb http://deb.debian.org/debian stretch-backports main contrib non-free
+        state: present
+
     - name: install flatpak
-      become: True
-      become_user: root
-      package:
+      apt:
+        default_release: stretch-backports
         name: flatpak
         state: latest
+        update_cache: yes
 
         # Have to do this manually until ansible 2.8 fixes arrive
     - name: add flathub remote
-      command: flatpak remote-add --if-not-exists --user \
+      command: flatpak remote-add --if-not-exists \
         flathub https://flathub.org/repo/flathub.flatpakrepo
       #   flatpak_remote:
       #     name: flathub
       #     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
-        # TODO
-  # - name: install discord
-  #   command: flatpak install flathub com.discordapp.Discord
+    - name: install discord
+      command: flatpak install -y flathub com.discordapp.Discord
+      args:
+        creates: /var/lib/flatpak/app/com.discordapp.Discord
 
-  # com.discordapp.Discord
-  # com.getpostman.Postman
-  # com.slack.Slack
-  # com.visualstudio.code
-  # org.filezillaproject.Filezilla
-  # org.gimp.GIMP
-  # org.libreoffice.LibreOffice
+    - name: install postman
+      command: flatpak install -y flathub com.getpostman.Postman
+      args:
+        creates: /var/lib/flatpak/app/com.getpostman.Postman
+
+    - name: install slack
+      command: flatpak install -y flathub com.slack.Slack
+      args:
+        creates: /var/lib/flatpak/app/com.slack.Slack
+
+    - name: install visualstudio
+      command: flatpak install -y flathub com.visualstudio.code
+      args:
+        creates: /var/lib/flatpak/app/com.visualstudio.code
+
+    - name: install filezilla
+      command: flatpak install -y flathub org.filezillaproject.Filezilla
+      args:
+        creates: /var/lib/flatpak/app/org.filezillaproject.Filezilla
+
+    - name: install gimp
+      command: flatpak install -y flathub org.gimp.GIMP
+      args:
+        creates: /var/lib/flatpak/app/org.gimp.GIMP
+
+    - name: install libreoffice
+      command: flatpak install -y flathub org.libreoffice.LibreOffice
+      args:
+        creates: /var/lib/flatpak/app/org.libreoffice.LibreOffice
+
