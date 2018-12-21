@@ -1,0 +1,24 @@
+plugins=(
+  bundler
+  cp
+  debian
+  docker
+  docker-compose
+  emacs
+  ember
+  gem
+  git
+  man
+  node
+  npm
+  npx
+  nvm
+  rails
+  rake
+  rbenv
+  rebar
+  redis-cli
+  ruby
+  systemd
+  tmux
+)

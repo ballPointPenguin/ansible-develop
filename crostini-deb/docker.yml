@@ -1,0 +1,61 @@
+---
+- name: Set Up Docker
+  hosts: localhost
+  become: True
+  tasks:
+    - name: remove old versions of docker
+      apt:
+        name: "{{ packages }}"
+        state: absent
+      vars:
+        packages:
+          - docker
+          - docker-compose
+
+    - name: install dependencies
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg2
+          - python3-pip
+          - software-properties-common
+          - virtualenv
+
+    - name: add docker repo gpg key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: add docker repo
+      apt_repository:
+        repo: deb https://download.docker.com/linux/debian stretch stable
+        state: present
+
+    - name: install docker
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+          - docker-ce
+
+    - name: install docker-compose
+      pip:
+       executable: pip3
+       name: docker-compose
+
+    - name: ensure the docker group exists
+      group:
+        name: docker
+        state: present
+
+    - name: add user to docker group
+      user:
+        name: "{{ username }}"
+        groups: docker
+        append: yes

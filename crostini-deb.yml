@@ -1,0 +1,15 @@
+---
+- name: Run all the local playbooks
+  hosts: localhost
+
+- import_playbook: crostini-deb/packages.yml
+- import_playbook: crostini-deb/zsh.yml
+
+- import_playbook: crostini-deb/docker.yml
+- import_playbook: crostini-deb/erlang.yml
+- import_playbook: crostini-deb/flatpak.yml
+- import_playbook: crostini-deb/node.yml
+- import_playbook: crostini-deb/psql.yml
+- import_playbook: crostini-deb/ruby.yml
+- import_playbook: crostini-deb/vim.yml
+- import_playbook: crostini-deb/watchman.yml

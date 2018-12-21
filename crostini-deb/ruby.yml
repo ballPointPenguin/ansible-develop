@@ -1,0 +1,73 @@
+---
+- name: Install Ruby and friends
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install rbenv prerequisites
+      become: True
+      become_user: root
+      package: name={{ item }}
+               state=latest
+      with_items:
+        - automake
+        - libgdbm-dev
+        - libncurses-dev
+        - libreadline-dev
+        - libsqlite-dev
+        - libyaml-dev
+        - zlib1g-dev
+
+    - name: clone rbenv
+      git: repo=git://github.com/rbenv/rbenv.git
+           dest=/home/{{ username }}/src-hub/rbenv
+           update=yes
+
+    - name: create symlink to rbenv
+      file: path=/home/{{ username }}/.rbenv
+            src=/home/{{ username }}/src-hub/rbenv
+            state=link
+
+    - name: make rbenv
+      command: "{{ item }}"
+      args:
+        chdir: /home/{{ username }}/.rbenv
+      with_items:
+        - ./src/configure
+        - make -C src
+
+    - name: ensure the .rbenv/plugins directory is present
+      file: path=/home/{{ username }}/.rbenv/plugins
+            state=directory
+
+    - name: clone ruby-build plugin
+      git: repo=git://github.com/rbenv/ruby-build.git
+           dest=/home/{{ username }}/.rbenv/plugins/ruby-build
+
+    - name: copy rbenv.zsh to oh-my-zsh custom dir
+      copy: src=rbenv.zsh
+            dest=/home/{{ username }}/.oh-my-zsh/custom/
+            force=no
+
+  # Something isn't right with this. The zsh rbenv plugin may be enough
+  # - name: source rbenv.zsh
+  #   command: source /home/{{ username }}/.oh-my-zsh/custom/rbenv.zsh
+
+    - name: install ruby 2.5.3
+      command: rbenv install 2.5.3
+      args:
+        creates: /home/{{ username }}/.rbenv/versions/2.5.3/
+
+    - name: use ruby 2.5.3
+      command: "{{ item }}"
+      with_items:
+        - rbenv rehash
+        - rbenv global 2.5.3
+
+    - name: install user gems
+      command: gem install {{ item }}
+      args:
+        creates: /home/{{ username }}/.rbenv/versions/2.5.3/lib/ruby/gems/{{ item }}
+      with_items:
+        - bundler
+        - rake
+        - rails

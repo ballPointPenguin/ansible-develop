@@ -1,0 +1,29 @@
+---
+- name: Install development packages
+  hosts: localhost
+  become: True
+  tasks:
+    - name: install development packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+            - ack
+            - aptitude
+            - bison
+            - build-essential
+            - bzip2
+            - curl
+            - git
+            - git-svn
+            - golang
+            - htop
+            - make
+            - mr
+            - patch
+            - rxvt-unicode
+            - tmux
+            - tree
+            - xclip
