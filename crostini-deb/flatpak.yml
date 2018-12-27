@@ -59,3 +59,5 @@
       args:
         creates: /var/lib/flatpak/app/org.libreoffice.LibreOffice
 
+    - name: update flatpak applications
+      command: flatpak update
