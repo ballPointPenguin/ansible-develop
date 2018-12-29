@@ -35,6 +35,7 @@
       apt_repository:
         repo: deb https://download.docker.com/linux/debian stretch stable
         state: present
+        update_cache: yes
 
     - name: install docker
       apt:

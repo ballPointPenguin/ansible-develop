@@ -3,10 +3,27 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
+    - name: add erlang solutions key
+      become: True
+      become_user: root
+      apt_key:
+        url: https://packages.erlang-solutions.com/debian/erlang_solutions.asc
+        state: present
+
+    - name: add erlang solutions repo
+      become: True
+      become_user: root
+      apt_repository:
+        repo: deb https://packages.erlang-solutions.com/debian stretch contrib
+        state: present
+        update_cache: yes
+
     - name: install erlang, elixir, and rebar
       become: True
       become_user: root
       package: name={{ item }}
+      update_cache: yes
+      upgrade: dist
       with_items:
         - elixir
         - erlang
