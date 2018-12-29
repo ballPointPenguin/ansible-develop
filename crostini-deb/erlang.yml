@@ -18,22 +18,28 @@
         state: present
         update_cache: yes
 
+    - name: dist upgrade
+      become: True
+      become_user: root
+      apt:
+        upgrade: dist
+
     - name: install erlang, elixir, and rebar
       become: True
       become_user: root
-      package: name={{ item }}
-      update_cache: yes
-      upgrade: dist
-      with_items:
-        - elixir
-        - erlang
-        - inotify-tools
-        - rebar
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+          - elixir
+          - erlang
+          - inotify-tools
+          - rebar
 
   #   This is causing problems due to some esoteric DNS issue
     - name: install/update hex
       command: mix local.hex --force
 
-    - name: install/update phoenix
-      command: mix archive.install \
-        https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+    - name: install phoenix
+      command: mix archive.install hex phx_new 1.4.0
