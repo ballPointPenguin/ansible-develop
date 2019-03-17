@@ -25,5 +25,6 @@
             - patch
             - rxvt-unicode
             - tmux
+            - traceroute
             - tree
             - xclip
