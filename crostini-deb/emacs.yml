@@ -1,0 +1,38 @@
+---
+- name: Set Up Emacs via Spacemacs
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install vim and requirements
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - emacs
+
+    - name: check if .emacs.d exists
+      stat: path=/home/{{ username }}/.emacs.d
+      register: emacs_dir
+
+    - name: check if .emacs.d is a git repo
+      when: emacs_dir.stat.exists
+      stat: path=/home/{{ username }}/.emacs.d/.git
+      register: emacs_git
+
+    - name: backup .emacs.d if it is not a repo
+      when: (emacs_dir.stat.exists and emacs_git.stat.isdir is not defined)
+      command: mv /home/{{ username }}/.emacs.d /home/{{ username }}/.emacs.backup
+
+    - name: ensure the ~/src-hub directory is present
+      file: path=/home/{{ username }}/src-hub
+            state=directory
+
+    - name: clone spacemacs
+      git: repo=https://github.com/syl20bnr/spacemacs
+           dest=/home/{{ username }}/src-hub/spacemacs
+           update=no
+
+    - name: create symlink to spacemacs
+      file: path=/home/{{ username }}/.emacs.d
+            src=/home/{{ username }}/src-hub/spacemacs
+            state=link
