@@ -1,0 +1,24 @@
+---
+- name: install php and composer
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install openjdk (Java)
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - openjdk-11-jdk
+
+    - name: ensure the ~/bin directory is present
+      file: path=/home/{{ username }}/bin
+            state=directory
+
+    - name: Download lein script
+      get_url:
+        url: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+        dest: /home/{{ username }}/bin/lein
+        mode: 0777
+
+    - name: Run lein to download and self-install package
+      command: /home/{{ username }}/bin/lein

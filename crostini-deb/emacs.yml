@@ -3,7 +3,7 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    - name: install vim and requirements
+    - name: install emacs and requirements
       become: True
       become_user: root
       package: name={{ item }}
