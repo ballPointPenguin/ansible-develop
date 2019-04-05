@@ -1,0 +1,11 @@
+---
+- name: Set Up Lisp
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install CLisp
+      become: True
+      become_user: root
+      package: name={{ item }}
+      with_items:
+        - clisp

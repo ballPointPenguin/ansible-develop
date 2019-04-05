@@ -9,6 +9,7 @@
       package:
         name: flatpak
         state: latest
+        update_cache: yes
 
         # Have to do this manually until ansible 2.8 fixes arrive
     - name: add flathub remote
@@ -35,3 +36,5 @@
         - org.videolan.VLC
         - org.libreoffice.LibreOffice
 
+    - name: update flatpak applications
+      command: flatpak update

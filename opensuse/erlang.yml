@@ -36,10 +36,19 @@
         - erlang-rebar
         - inotify-tools
 
+    - name: ensure the ~/bin directory is present
+      file: path=/home/{{ username }}/bin
+            state=directory
+
+    - name: Download rebar3
+      get_url:
+        url: https://s3.amazonaws.com/rebar3/rebar3
+        dest: /home/{{ username }}/bin/rebar3
+        mode: 0777
+
   #   This is causing problems due to some esoteric DNS issue
-  # - name: install/update hex
-  #   command: mix local.hex --force
+    - name: install/update hex
+      command: mix local.hex --force
 
     - name: install/update phoenix
-      command: mix archive.install \
-        https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+      command: mix archive.install hex phx_new 1.4.0

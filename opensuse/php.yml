@@ -1,0 +1,37 @@
+---
+- name: install php and composer
+  hosts: localhost
+  become_user: "{{ username }}"
+  tasks:
+    - name: install php-cli
+      become: True
+      become_user: root
+      package:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - php-cli
+          - php-mbstring
+
+    - name: ensure the ~/bin directory is present
+      file: path=/home/{{ username }}/bin
+            state=directory
+
+    - name: download composer-setup.php
+      command: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      args:
+        chdir: /home/{{ username }}/bin
+        creates: /home/{{ username }}/bin/composer-setup.php
+
+    - name: run composer-setup.php
+      command: php composer-setup.php --install-dir=/home/{{ username }}/bin --filename=composer
+      args:
+        chdir: /home/{{ username }}/bin
+        creates: /home/{{ username }}/bin/composer
+
+    - name: remove composer-setup.php
+      command: php -r "unlink('composer-setup.php');"
+      args:
+        chdir: /home/{{ username }}/bin
+        removes: /home/{{ username }}/bin/composer-setup.php
+

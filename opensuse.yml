@@ -5,9 +5,12 @@
 - import_playbook: opensuse/packages.yml
 - import_playbook: opensuse/zsh.yml
 
+- import_playbook: opensuse/clojure.yml
 - import_playbook: opensuse/docker.yml
+- import_playbook: opensuse/emacs.yml
 - import_playbook: opensuse/erlang.yml
 - import_playbook: opensuse/flatpak.yml
+- import_playbook: opensuse/lisp.yml
 - import_playbook: opensuse/node.yml
 - import_playbook: opensuse/psql.yml
 - import_playbook: opensuse/ruby.yml

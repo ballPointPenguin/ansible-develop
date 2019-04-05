@@ -64,6 +64,16 @@
             dest=/home/{{ username }}/.oh-my-zsh/custom/
             force=no
 
+    - name: copy display.zsh to oh-my-zsh custom dir
+      copy: src=display.zsh
+            dest=/home/{{ username }}/.oh-my-zsh/custom/
+            force=no
+
+    - name: copy path.zsh to oh-my-zsh custom dir
+      copy: src=path.zsh
+            dest=/home/{{ username }}/.oh-my-zsh/custom/
+            force=no
+
     - name: change user shell to zsh
       become: yes
       become_user: root

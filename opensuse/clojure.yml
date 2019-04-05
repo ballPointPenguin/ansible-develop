@@ -8,7 +8,7 @@
       become_user: root
       package: name={{ item }}
       with_items:
-        - openjdk-11-jdk
+        - java-12-openjdk
 
     - name: ensure the ~/bin directory is present
       file: path=/home/{{ username }}/bin
