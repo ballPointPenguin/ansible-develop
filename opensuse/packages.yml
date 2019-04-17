@@ -34,6 +34,7 @@
         - ack
         - bison
         - bzip2
+        - chromium
         - curl
         - gcc-c++
         - git

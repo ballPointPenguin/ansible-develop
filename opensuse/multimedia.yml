@@ -1,0 +1,33 @@
+---
+- name: Install multimedia tools
+  hosts: localhost
+  become: True
+  tasks:
+    - name: add packman repo
+      become: True
+      become_user: root
+      zypper_repository:
+        name: packman
+        repo: 'http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/'
+        auto_import_keys: yes
+        runrefresh: yes
+
+    - name: dist upgrade
+      zypper:
+        name: "*"
+        state: dist-upgrade
+        extra_args: '--allow-vendor-change'
+
+    - name: install packages
+      zypper:
+        name: "{{ packages }}"
+        force: yes
+      vars:
+        packages:
+          - ffmpeg-4
+          - gstreamer-plugins-bad
+          - gstreamer-plugins-libav
+          - gstreamer-plugins-ugly
+          - gstreamer-plugins-ugly-orig-addon
+          - lame
+          - vlc-codecs
