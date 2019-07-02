@@ -11,11 +11,16 @@
       with_items:
         - automake
         - gdbm-devel
+        - libopenssl-devel
         - libyaml-devel
         - ncurses-devel
         - readline-devel
         - sqlite3-devel
         - zlib-devel
+
+    - name: ensure the ~/src-hub directory is present
+      file: path=/home/{{ username }}/src-hub
+            state=directory
 
     - name: clone rbenv
       git: repo=git://github.com/rbenv/rbenv.git
