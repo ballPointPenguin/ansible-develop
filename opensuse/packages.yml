@@ -1,11 +1,11 @@
 ---
+# PREREQUISITE: sudo zypper in python-xml
 - name: Install development packages
   hosts: localhost
   become: True
+  become_user: root
   tasks:
     - name: refresh repositories
-      become: True
-      become_user: root
       zypper_repository:
         repo: '*'
         runrefresh: yes
@@ -28,8 +28,9 @@
         state: present
 
     - name: install development packages
-      package: name={{ item }}
-               state=present
+      package:
+        name: "{{ item }}"
+        state: present
       with_items:
         - ack
         - bison
