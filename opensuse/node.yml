@@ -9,19 +9,10 @@
       package: name=nodejs10
                state=latest
 
-    - name: ensure the ~/src-hub directory is present
-      file: path=/home/{{ username }}/src-hub
-            state=directory
-
     - name: clone nvm
       git: repo=https://github.com/creationix/nvm.git
-           dest=/home/{{ username }}/src-hub/nvm
+           dest=/home/{{ username }}/.nvm
            update=no
-
-    - name: create symlink to nvm
-      file: path=/home/{{ username }}/.nvm
-            src=/home/{{ username }}/src-hub/nvm
-            state=link
 
     - name: copy nvm.zsh to oh-my-zsh custom dir
       copy: src=nvm.zsh
