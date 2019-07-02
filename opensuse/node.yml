@@ -6,15 +6,24 @@
     - name: install system node
       become: True
       become_user: root
-      package: name=nodejs10
-               state=latest
+      package:
+        name: nodejs10
+        state: latest
 
     - name: clone nvm
-      git: repo=https://github.com/creationix/nvm.git
-           dest=/home/{{ username }}/.nvm
-           update=no
+      git:
+        repo: https://github.com/creationix/nvm.git
+        dest: /home/{{ username }}/.nvm
+        update: no
+
+    - name: clone zsh-nvm to oh-my-zsh custom dir
+      git:
+        repo: https://github.com/lukechilds/zsh-nvm
+        dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
+        update: yes
 
     - name: copy nvm.zsh to oh-my-zsh custom dir
-      copy: src=nvm.zsh
-            dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+      copy:
+        src: nvm.zsh
+        dest: /home/{{ username }}/.oh-my-zsh/custom/
+        force: no
