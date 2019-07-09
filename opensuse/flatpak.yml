@@ -37,4 +37,4 @@
         - org.libreoffice.LibreOffice
 
     - name: update flatpak applications
-      command: flatpak update
+      command: flatpak update -y
