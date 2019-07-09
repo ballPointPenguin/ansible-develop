@@ -11,7 +11,9 @@
         - pgadmin4
         - postgresql
         - postgresql-contrib
+        - postgresql-devel
         - postgresql-server
+        - postgresql-server-devel
 
     - name: enable postgresql service
       service: name=postgresql
