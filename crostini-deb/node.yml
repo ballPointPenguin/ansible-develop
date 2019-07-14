@@ -13,14 +13,14 @@
       file: path=/home/{{ username }}/src-hub
             state=directory
 
-    - name: clone nvm-zsh
+    - name: clone zsh-nvm
       git: repo=https://github.com/lukechilds/zsh-nvm.git
-           dest=/home/{{ username }}/src-hub/nvm-zsh
+           dest=/home/{{ username }}/src-hub/zsh-nvm
            update=no
 
     - name: create symlink to oh-my-zsh plugins
-      file: path=/home/{{ username }}/.oh-my-zsh/custom/plugins/nvm-zsh
-            src=/home/{{ username }}/src-hub/nvm-zsh
+      file: path=/home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
+            src=/home/{{ username }}/src-hub/zsh-nvm
             state=link
 
     - name: copy nvm.zsh to oh-my-zsh custom dir

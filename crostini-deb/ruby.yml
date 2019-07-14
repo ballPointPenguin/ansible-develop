@@ -12,6 +12,7 @@
         - automake
         - libgdbm-dev
         - libncurses-dev
+        - libssl-dev
         - libreadline-dev
         - libsqlite-dev
         - libyaml-dev
@@ -52,21 +53,21 @@
   # - name: source rbenv.zsh
   #   command: source /home/{{ username }}/.oh-my-zsh/custom/rbenv.zsh
 
-    - name: install ruby 2.5.3
-      command: rbenv install 2.5.3
+    - name: install ruby 2.6.2
+      command: rbenv install 2.6.2
       args:
-        creates: /home/{{ username }}/.rbenv/versions/2.5.3/
+        creates: /home/{{ username }}/.rbenv/versions/2.6.2/
 
-    - name: use ruby 2.5.3
+    - name: use ruby 2.6.2
       command: "{{ item }}"
       with_items:
         - rbenv rehash
-        - rbenv global 2.5.3
+        - rbenv global 2.6.2
 
     - name: install user gems
       command: gem install {{ item }}
       args:
-        creates: /home/{{ username }}/.rbenv/versions/2.5.3/lib/ruby/gems/{{ item }}
+        creates: /home/{{ username }}/.rbenv/versions/2.6.2/lib/ruby/gems/{{ item }}
       with_items:
         - bundler
         - rake

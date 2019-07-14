@@ -20,6 +20,7 @@
             - git-svn
             - golang
             - htop
+            - iputils-ping
             - make
             - mr
             - patch

@@ -52,27 +52,27 @@
     - name: copy zsh-newuser-install.zsh to oh-my-zsh custom dir
       copy: src=zsh-newuser-install.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
 
     - name: copy compinstall.zsh to oh-my-zsh custom dir
       copy: src=compinstall.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
 
     - name: copy alias.zsh to oh-my-zsh custom dir
       copy: src=alias.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
 
     - name: copy display.zsh to oh-my-zsh custom dir
       copy: src=display.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
 
     - name: copy path.zsh to oh-my-zsh custom dir
       copy: src=path.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
 
     - name: change user shell to zsh
       become: yes
