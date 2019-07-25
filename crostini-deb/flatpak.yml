@@ -16,18 +16,20 @@
         state: latest
         update_cache: yes
 
-    # Have to do this manually until ansible 2.8 fixes arrive
     - name: add flathub remote
-      command: flatpak remote-add --if-not-exists \
-        flathub https://flathub.org/repo/flathub.flatpakrepo
+      flatpak_remote:
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+        method: user
+        name: flathub
 
     - name: install Flatpak Apps
       flatpak:
-        name: "{{ item }}"
         method: user
+        name: "{{ item }}"
       loop:
         - com.discordapp.Discord
         - com.getpostman.Postman
+        - com.jetbrains.IntelliJ-IDEA-Ultimate
         - com.slack.Slack
         - com.visualstudio.code
         - org.filezillaproject.Filezilla
