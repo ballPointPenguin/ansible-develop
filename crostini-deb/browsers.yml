@@ -12,9 +12,13 @@
     - name: install flatpak
       apt:
         default_release: stretch-backports
-        name: flatpak
+        name: "{{ packages }}"
         state: latest
         update_cache: yes
+      vars:
+        packages:
+          - flatpak
+          - flatpak-xdg-utils
 
     - name: add unofficial firefox remote
       command: flatpak remote-add --if-not-exists --from org.mozilla.FirefoxRepo \

@@ -1,3 +1,4 @@
+alias ag="ack"
 alias gcmfp="git checkout master && git fetch -p --all && git pull"
 alias gloh="git log --oneline --decorate | head"
 alias ncux="npx node-check-updates"

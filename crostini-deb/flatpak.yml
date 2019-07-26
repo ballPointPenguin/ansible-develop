@@ -1,15 +1,18 @@
 ---
 - name: Setup Flatpak and Install Apps
   hosts: localhost
-  become: True
-  become_user: root
+  become_user: "{{ username }}"
   tasks:
     - name: add backports repo
+      become: True
+      become_user: root
       apt_repository:
         repo: deb http://deb.debian.org/debian stretch-backports main contrib non-free
         state: present
 
     - name: install flatpak
+      become: True
+      become_user: root
       apt:
         default_release: stretch-backports
         name: flatpak
@@ -37,4 +40,5 @@
         - org.libreoffice.LibreOffice
 
     - name: update flatpak applications
-      command: flatpak update -y
+      command: flatpak update --user -y
+
