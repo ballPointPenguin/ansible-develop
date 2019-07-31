@@ -3,21 +3,25 @@
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
-    - name: add backports repo
+    - name: add buster repo
       become: True
       become_user: root
       apt_repository:
-        repo: deb http://deb.debian.org/debian stretch-backports main contrib non-free
+        repo: deb http://deb.debian.org/debian buster main contrib non-free
         state: present
 
     - name: install flatpak
       become: True
       become_user: root
       apt:
-        default_release: stretch-backports
-        name: flatpak
+        default_release: buster
+        name: "{{ packages }}"
         state: latest
         update_cache: yes
+      vars:
+        packages:
+          - "flatpak"
+          - "flatpak-xdg-utils"
 
     - name: add flathub remote
       flatpak_remote:
@@ -25,19 +29,33 @@
         method: user
         name: flathub
 
-    - name: install Flatpak Apps
+    - name: add unofficial firefox remote
+      flatpak_remote:
+        flatpakrepo_url: https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxRepo.flatpakrepo
+        method: user
+        name: FirefoxRepo
+
+    - name: install Flatpak Apps from flathub
       flatpak:
         method: user
         name: "{{ item }}"
+        remote: flathub
       loop:
         - com.discordapp.Discord
         - com.getpostman.Postman
         - com.jetbrains.IntelliJ-IDEA-Ultimate
+        - com.jetbrains.WebStorm
         - com.slack.Slack
         - com.visualstudio.code
         - org.filezillaproject.Filezilla
         - org.gimp.GIMP
         - org.libreoffice.LibreOffice
+
+    - name: install Firefox Dev Edition
+      flatpak:
+        method: user
+        name: org.mozilla.FirefoxDevEdition
+        remote: FirefoxRepo
 
     - name: update flatpak applications
       command: flatpak update --user -y

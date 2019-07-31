@@ -15,6 +15,7 @@
             - bison
             - build-essential
             - bzip2
+            - chromium
             - curl
             - git
             - git-svn
