@@ -47,7 +47,7 @@
     - name: copy rbenv.zsh to oh-my-zsh custom dir
       copy: src=rbenv.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
 
   # Something isn't right with this. The zsh rbenv plugin may be enough
   # - name: source rbenv.zsh

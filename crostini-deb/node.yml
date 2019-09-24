@@ -26,4 +26,4 @@
     - name: copy nvm.zsh to oh-my-zsh custom dir
       copy: src=nvm.zsh
             dest=/home/{{ username }}/.oh-my-zsh/custom/
-            force=no
+            force=yes
