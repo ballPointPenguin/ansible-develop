@@ -11,30 +11,45 @@
         state: latest
         update_cache: yes
 
-        # Have to do this manually until ansible 2.8 fixes arrive
     - name: add flathub remote
-      command: flatpak remote-add --if-not-exists --user \
-        flathub https://flathub.org/repo/flathub.flatpakrepo
-      #   flatpak_remote:
-      #     name: flathub
-      #     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-
-    - name: install Flatpak Apps
-      flatpak:
-        name: "{{ item }}"
+      flatpak_remote:
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
         method: user
+        name: flathub
+
+    - name: add unofficial firefox remote
+      flatpak_remote:
+        flatpakrepo_url: https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxRepo.flatpakrepo
+        method: user
+        name: FirefoxRepo
+
+    - name: install Flatpak Apps from flathub
+      flatpak:
+        method: user
+        name: "{{ item }}"
+        remote: flathub
       loop:
         - com.discordapp.Discord
         - com.getpostman.Postman
         - com.google.AndroidStudio
+        - com.jetbrains.IntelliJ-IDEA-Ultimate
+        - com.jetbrains.WebStorm
         - com.skype.Client
         - com.slack.Slack
         - com.visualstudio.code
         - org.audacityteam.Audacity
         - org.filezillaproject.Filezilla
         - org.gimp.GIMP
-        - org.videolan.VLC
         - org.libreoffice.LibreOffice
+        - org.qbittorrent.qBittorrent
+        - org.videolan.VLC
+
+    - name: install Firefox Dev Edition
+      flatpak:
+        method: user
+        name: org.mozilla.FirefoxDevEdition
+        remote: FirefoxRepo
 
     - name: update flatpak applications
-      command: flatpak update -y
+      command: flatpak update --user -y
+
