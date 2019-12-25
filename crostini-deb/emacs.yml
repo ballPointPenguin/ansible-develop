@@ -1,5 +1,5 @@
 ---
-- name: Set Up Emacs via Spacemacs
+- name: Set Up Emacs
   hosts: localhost
   become_user: "{{ username }}"
   tasks:
@@ -26,13 +26,3 @@
     - name: ensure the ~/src-hub directory is present
       file: path=/home/{{ username }}/src-hub
             state=directory
-
-    - name: clone spacemacs
-      git: repo=https://github.com/syl20bnr/spacemacs
-           dest=/home/{{ username }}/src-hub/spacemacs
-           update=no
-
-    - name: create symlink to spacemacs
-      file: path=/home/{{ username }}/.emacs.d
-            src=/home/{{ username }}/src-hub/spacemacs
-            state=link
