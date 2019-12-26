@@ -26,7 +26,6 @@
             - mr
             - patch
             - rxvt-unicode
-            - sbcl
             - tmux
             - traceroute
             - tree
