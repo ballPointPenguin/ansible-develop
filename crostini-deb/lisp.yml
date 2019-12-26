@@ -6,8 +6,9 @@
     - name: install lisp packages
       become: True
       become_user: root
-      package: name={{ item }}
-      with_items:
-	- cl-quicklisp
-	- sbcl
-        - clisp
+      package: name="{{ packages }}"
+      vars:
+        packages:
+          - cl-quicklisp
+          - sbcl
+          - clisp
