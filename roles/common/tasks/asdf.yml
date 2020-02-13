@@ -18,20 +18,11 @@
       src: /home/{{ username }}/src-hub/asdf
       state: link
 
-  - name: make asdf.sh executable
-    file:
-      path: /home/{{ username }}/src-hub/asdf/asdf.sh
-      mode: u+x
-
-  - name: make asdf.bash executable
-    file:
-      path: /home/{{ username }}/src-hub/asdf/completions/asdf.bash
-      mode: u+x
-
   - name: copy asdf.zsh to oh-my-zsh custom dir
     copy:
       src: 90-asdf.zsh
       dest: /home/{{ username }}/.oh-my-zsh/custom/
 
   - name: update asdf plugins
-    shell: /home/{{ username }}/.asdf/bin/asdf plugin-update --all
+    command: asdf plugin-update --all
+    ignore_errors: yes

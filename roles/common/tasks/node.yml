@@ -1,28 +1,18 @@
 ---
-  - name: ensure the ~/src-hub directory is present
-    file:
-      path: /home/{{ username }}/src-hub
-      state: directory
+  - name: add asdf-node
+    command: asdf plugin-add nodejs
+    args:
+      creates: /home/{{ username }}/.asdf/plugins/nodejs
 
-  - name: clone nvm
-    git:
-      repo: https://github.com/creationix/nvm.git
-      dest: /home/{{ username }}/src-hub/nvm
-      update: no
+  - name: import OpenPGP keys
+    command: bash /home/{{ username }}/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
-  - name: create symlink to nvm
-    file:
-      path: /home/{{ username }}/.nvm
-      src: /home/{{ username }}/src-hub/nvm
-      state: link
+  - name: install node
+    command: asdf install nodejs latest
 
-  - name: clone zsh-nvm to oh-my-zsh custom dir
-    git:
-      repo: https://github.com/lukechilds/zsh-nvm
-      dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
-      update: yes
+  - name: register latest node version
+    command: asdf latest nodejs
+    register: latest_node
 
-  - name: copy nvm.zsh to oh-my-zsh custom dir
-    copy:
-      src: 10-nvm.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+  - name: set global node
+    command: asdf global nodejs {{latest_node.stdout}}

@@ -18,6 +18,7 @@
     - devpkg-zlib
     - docker-compose
     - fonts-basic
+    - gnupg
     - go-basic
     - java11-basic
     - jq
