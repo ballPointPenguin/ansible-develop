@@ -13,6 +13,7 @@
     - devpkg-libunwind
     - devpkg-ncurses
     - devpkg-otp
+    - devpkg-postgresql
     - devpkg-readline
     - devpkg-zlib
     - docker-compose
