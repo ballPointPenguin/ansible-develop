@@ -1,0 +1,28 @@
+---
+  - name: ensure the ~/src-hub directory is present
+    file:
+      path: /home/{{ username }}/src-hub
+      state: directory
+
+  - name: clone nvm
+    git:
+      repo: https://github.com/creationix/nvm.git
+      dest: /home/{{ username }}/src-hub/nvm
+      update: no
+
+  - name: create symlink to nvm
+    file:
+      path: /home/{{ username }}/.nvm
+      src: /home/{{ username }}/src-hub/nvm
+      state: link
+
+  - name: clone zsh-nvm to oh-my-zsh custom dir
+    git:
+      repo: https://github.com/lukechilds/zsh-nvm
+      dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
+      update: yes
+
+  - name: copy nvm.zsh to oh-my-zsh custom dir
+    copy:
+      src: 10-nvm.zsh
+      dest: /home/{{ username }}/.oh-my-zsh/custom/

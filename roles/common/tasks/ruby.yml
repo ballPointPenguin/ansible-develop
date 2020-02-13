@@ -1,0 +1,20 @@
+---
+  - name: copy default-gems to home dir
+    copy:
+      src: default-gems
+      dest: /home/{{ username }}/.default-gems
+
+  - name: add asdf-ruby
+    command: asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+    args:
+      creates: /home/{{ username }}/.asdf/plugins/ruby
+
+  - name: install ruby
+    command: asdf install ruby latest
+
+  - name: register latest ruby version
+    command: asdf latest ruby
+    register: latest_ruby
+
+  - name: set global ruby
+    command: asdf global ruby {{latest_ruby.stdout}}

@@ -1,0 +1,38 @@
+---
+# Do this first
+- import_tasks: zsh.yml
+  tags: zsh
+
+# Do this second
+- import_tasks: asdf.yml
+  tags: asdf
+
+- import_tasks: clojure.yml
+  tags: clojure
+- import_tasks: elixir.yml
+  tags: elixir
+- import_tasks: flatpak.yml
+  tags: flatpak
+- import_tasks: git.yml
+  tags: git
+- import_tasks: lisp.yml
+  tags: lisp
+- import_tasks: node.yml
+  tags: node
+- import_tasks: prolog.yml
+  tags: prolog
+- import_tasks: ruby.yml
+  tags: ruby
+- import_tasks: vim.yml
+  tags: vim
+
+# Root required
+- import_tasks: docker.yml
+  become: yes
+  become_user: root
+  tags: docker
+
+- import_tasks: hostname.yml
+  become: yes
+  become_user: root
+  tags: hostname

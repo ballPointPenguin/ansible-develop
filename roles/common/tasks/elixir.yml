@@ -1,0 +1,55 @@
+---
+  # ERLANG
+  - name: add asdf-erlang
+    command: asdf plugin-add erlang
+    args:
+      creates: /home/{{ username }}/.asdf/plugins/erlang
+
+  - name: install erlang
+    command: asdf install erlang latest
+
+  - name: register latest erlang version
+    command: asdf latest erlang
+    register: latest_erlang
+
+  - name: set global erlang
+    command: asdf global erlang {{latest_erlang.stdout}}
+
+  # ELIXIR
+  - name: add asdf-elixir
+    command: asdf plugin-add elixir
+    args:
+      creates: /home/{{ username }}/.asdf/plugins/elixir
+
+  - name: install elixir
+    command: asdf install elixir latest
+
+  - name: register latest elixir version
+    command: asdf latest elixir
+    register: latest_elixir
+
+  - name: set global elixir
+    command: asdf global elixir {{latest_elixir.stdout}}
+
+  # REBAR
+  - name: add asdf-rebar
+    command: asdf plugin-add rebar
+    args:
+      creates: /home/{{ username }}/.asdf/plugins/rebar
+
+  - name: install rebar
+    command: asdf install rebar latest
+
+  - name: register latest rebar version
+    command: asdf latest rebar
+    register: latest_rebar
+
+  - name: set global rebar
+    command: asdf global rebar {{latest_rebar.stdout}}
+
+  # PHOENIX
+  - name: install/update hex
+    command: mix local.hex --force
+
+  - name: install/update phoenix
+    command: mix archive.install hex phx_new 1.4.12

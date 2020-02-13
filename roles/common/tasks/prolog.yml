@@ -1,0 +1,15 @@
+---
+  - name: add asdf-swiprolog
+    command: asdf plugin-add swiprolog
+    args:
+      creates: /home/{{ username }}/.asdf/plugins/swiprolog
+
+  - name: install prolog
+    command: asdf install swiprolog latest
+
+  - name: register latest prolog version
+    command: asdf latest swiprolog
+    register: latest_prolog
+
+  - name: set global prolog
+    command: asdf global swiprolog {{latest_prolog.stdout}}

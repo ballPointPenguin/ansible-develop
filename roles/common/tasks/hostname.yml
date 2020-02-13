@@ -1,0 +1,15 @@
+---
+- name: set hostname
+  hostname:
+    name: "{{ hostname }}"
+
+- name: ensure /etc/hosts exists
+  file:
+    path: /etc/hosts
+    state: touch
+
+- name: add hostname to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1.*\.localdomain'
+    line: '127.0.0.1       {{ hostname }}.localdomain       {{ hostname }}'

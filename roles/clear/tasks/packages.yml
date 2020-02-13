@@ -1,0 +1,31 @@
+---
+- name: update OS to latest version
+  swupd:
+    update: yes
+
+- name: install software bundles
+  swupd:
+    name: "{{ item }}"
+  with_items:
+    - c-basic
+    - dev-utils
+    - devpkg-libarchive
+    - devpkg-libunwind
+    - devpkg-ncurses
+    - devpkg-otp
+    - devpkg-readline
+    - devpkg-zlib
+    - docker-compose
+    - fonts-basic
+    - go-basic
+    - java11-basic
+    - jq
+    - lib-openssl
+    - make
+    - nodejs-basic
+    - package-utils
+    - ruby-basic
+    - rxvt-unicode
+    - texlive
+    - x11-tools
+    - zsh

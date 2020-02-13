@@ -1,0 +1,44 @@
+---
+  - name: add flathub remote
+    flatpak_remote:
+      flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+      method: user
+      name: flathub
+
+  - name: add unofficial firefox remote
+    flatpak_remote:
+      flatpakrepo_url: https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxRepo.flatpakrepo
+      method: user
+      name: FirefoxRepo
+
+  - name: install Flatpak Apps from flathub
+    flatpak:
+      method: user
+      name: "{{ item }}"
+      remote: flathub
+    loop:
+      - com.discordapp.Discord
+      - com.getpostman.Postman
+      - com.skype.Client
+      - com.slack.Slack
+      - com.visualstudio.code
+      - org.audacityteam.Audacity
+      - org.filezillaproject.Filezilla
+      - org.gimp.GIMP
+      - org.libreoffice.LibreOffice
+      - org.qbittorrent.qBittorrent
+      - org.videolan.VLC
+
+  - name: install Firefox Dev Edition
+    flatpak:
+      method: user
+      name: org.mozilla.FirefoxDevEdition
+      remote: FirefoxRepo
+
+  - name: update flatpak applications
+    command: flatpak update --user -y
+
+  - name: copy flatpak.zsh to oh-my-zsh custom dir
+    copy:
+      src: 10-flatpak.zsh
+      dest: /home/{{ username }}/.oh-my-zsh/custom/
