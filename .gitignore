@@ -1,4 +1,5 @@
 *retry
 *swp
 
-host_vars/localhost.yml
+/host_vars/*.yml
+!/host_vars/example.yml
