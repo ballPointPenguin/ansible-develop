@@ -28,6 +28,7 @@
     - package-utils
     - ruby-basic
     - rxvt-unicode
+    - storage-utils
     - texlive
     - x11-tools
     - zsh
