@@ -25,6 +25,8 @@
   tags: ruby
 - import_tasks: vim.yml
   tags: vim
+- import_tasks: watchman.yml
+  tags: watchman
 
 # Root required
 - import_tasks: docker.yml
@@ -36,3 +38,4 @@
   become: yes
   become_user: root
   tags: hostname
+
