@@ -17,6 +17,7 @@
     - devpkg-readline
     - devpkg-zlib
     - docker-compose
+    - evince
     - fonts-basic
     - gnupg
     - go-basic
