@@ -11,6 +11,8 @@
   tags: clojure
 - import_tasks: elixir.yml
   tags: elixir
+- import_tasks: exercism.yml
+  tags: exercism
 - import_tasks: flatpak.yml
   tags: flatpak
 - import_tasks: git.yml
