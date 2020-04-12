@@ -18,3 +18,9 @@
 
   - name: set global ruby
     command: asdf global ruby {{latest_ruby.stdout}}
+
+  - name: copy ruby.zsh to oh-muy-=zsh custom dir
+    copy:
+      src: 10-ruby.zsh
+      dest: /home/{{ username }}/.oh-my-zsh/custom/
+
