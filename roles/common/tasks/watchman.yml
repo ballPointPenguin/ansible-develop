@@ -1,5 +1,5 @@
 ---
-  - name: ensure the /home/{{ username }}/src-hub directory is present
+  - name: ensure the $HOME/src-hub directory is present
     file:
       path: /home/{{ username }}/src-hub
       state: directory

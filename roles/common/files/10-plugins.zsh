@@ -2,6 +2,7 @@ plugins=(
   asdf
   docker
   emacs
+  gcloud
   git
   npm
   rebar

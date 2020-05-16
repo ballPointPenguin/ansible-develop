@@ -1,0 +1,12 @@
+---
+  - name: download and unarchive google-cloud-sdk
+    unarchive:
+      src: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-292.0.0-linux-x86_64.tar.gz
+      dest: /home/{{ username }}
+      remote_src: yes
+
+  - name: copy gcloud.zsh to oh-my-zsh custom dir
+    copy:
+      src: 10-gcloud.zsh
+      dest: /home/{{ username }}/.oh-my-zsh/custom/
+
