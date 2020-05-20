@@ -25,6 +25,7 @@
     - jq
     - lib-openssl
     - make
+    - mtr
     - nodejs-basic
     - package-utils
     - ruby-basic
