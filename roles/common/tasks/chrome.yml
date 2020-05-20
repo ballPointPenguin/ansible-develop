@@ -1,0 +1,29 @@
+---
+- name: Download Chrome rpm
+  get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    dest: /home/{{ username }}/Downloads/
+
+- name: Import rpm key
+  become: yes
+  become_user: root
+  rpm_key:
+    key: https://dl-ssl.google.com/linux/linux_signing_key.pub
+
+- name: Install Chrome rpm
+  become: yes
+  become_user: root
+  command: rpm -U --nodeps /home/{{ username }}/Downloads/google-chrome*.rpm
+  args:
+    creates: /usr/share/applications/google-chrome.desktop
+
+- name: check if desktop launcher has been modified with FONTCONFIG_PATH
+  shell: grep FONTCONFIG_PATH /usr/share/applications/google-chrome.desktop
+  register: grep_output
+  ignore_errors: true
+
+- name: Regex the font path into the app launcher
+  become: yes
+  become_user: root
+  command: sed -i 's\/usr/bin/google-chrome-stable\env FONTCONFIG_PATH=/usr/share/defaults/fonts /usr/bin/google-chrome-stable\g' /usr/share/applications/google-chrome.desktop
+  when: grep_output is failed

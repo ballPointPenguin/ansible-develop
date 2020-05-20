@@ -7,6 +7,8 @@
 - import_tasks: asdf.yml
   tags: asdf
 
+- import_tasks: chrome.yml
+  tags: chrome
 - import_tasks: clojure.yml
   tags: clojure
 - import_tasks: elixir.yml
