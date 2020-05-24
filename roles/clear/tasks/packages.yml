@@ -31,6 +31,7 @@
     - package-utils
     - ruby-basic
     - rxvt-unicode
+    - simplescreenrecorder
     - storage-utils
     - texlive
     - x11-tools
