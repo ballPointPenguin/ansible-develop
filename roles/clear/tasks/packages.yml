@@ -27,6 +27,7 @@
     - make
     - mtr
     - nodejs-basic
+    - obs-studio
     - package-utils
     - ruby-basic
     - rxvt-unicode
