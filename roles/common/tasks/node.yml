@@ -16,3 +16,14 @@
 
   - name: set global node
     command: asdf global nodejs {{latest_node.stdout}}
+
+  - name: ensure .asdfrc file exists
+    file:
+      path: /home/{{ username }}/.asdfrc
+      state: touch
+
+  - name: ensure legacy_version_file support (.node-version or .nvmrc)
+    lineinfile:
+      path: /home/{{ username }}/.asdfrc
+      regexp: '^legacy_version_file'
+      line: 'legacy_version_file = yes'
