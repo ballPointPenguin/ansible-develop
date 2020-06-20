@@ -15,6 +15,7 @@
     - devpkg-otp
     - devpkg-postgresql
     - devpkg-readline
+    - devpkg-sqlite-autoconf
     - devpkg-zlib
     - docker-compose
     - evince
