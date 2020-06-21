@@ -22,7 +22,6 @@
       - com.skype.Client
       - com.slack.Slack
       - com.visualstudio.code
-      - im.gitter.Gitter
       - org.audacityteam.Audacity
       - org.filezillaproject.Filezilla
       - org.gimp.GIMP
