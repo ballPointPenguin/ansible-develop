@@ -1,9 +1,8 @@
 plugins=(
-  asdf
   docker
   emacs
-  gcloud
   git
+  gitignore
   npm
   rebar
   systemd

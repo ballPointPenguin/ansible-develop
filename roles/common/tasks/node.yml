@@ -1,24 +1,18 @@
 ---
-- name: ensure the ~/src-hub directory is present
+- name: ensure the plugins directory is present
   file:
-    path: /home/{{ username }}/src-hub
+    path: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins
     state: directory
 
 - name: clone zsh-nvm
   git:
-    dest: /home/{{ username }}/src-hub/zsh-nvm
+    dest: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins/zsh-nvm
     repo: https://github.com/lukechilds/zsh-nvm.git
     update: no
-
-- name: create symlink to oh-my-zsh plugins
-  file:
-    path: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
-    src: /home/{{ username }}/src-hub/zsh-nvm
-    state: link
 
 - name: copy nvm.zsh to oh-my-zsh custom dir
   copy:
     dest: /home/{{ username }}/.oh-my-zsh/custom/
-    mode: "0660"
+    mode: "0644"
     force: yes
     src: 10-nvm.zsh
