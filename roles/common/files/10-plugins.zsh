@@ -1,4 +1,4 @@
-plugins=(
+plugins+=(
   docker
   emacs
   git
