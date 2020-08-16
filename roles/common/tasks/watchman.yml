@@ -1,47 +1,47 @@
 ---
-  - name: ensure the $HOME/src-hub directory is present
-    file:
-      path: /home/{{ username }}/src-hub
-      state: directory
+- name: ensure the $HOME/src-hub directory is present
+  file:
+    path: /home/{{ username }}/src-hub
+    state: directory
 
-  - name: clone watchman
-    git:
-      repo: https://github.com/facebook/watchman.git
-      dest: /home/{{ username }}/src-hub/watchman
-      depth: 1
-      update: no
-      version: v4.9.0
+- name: clone watchman
+  git:
+    depth: "1"
+    dest: /home/{{ username }}/src-hub/watchman
+    repo: https://github.com/facebook/watchman.git
+    update: no
+    version: v4.9.0
 
-  - name: ensure the /etc/sysctl.d directory is present
-    become: True
-    become_user: root
-    file:
-      path: /etc/sysctl.d
-      state: directory
+- name: ensure the /etc/sysctl.d directory is present
+  become: True
+  become_user: root
+  file:
+    path: /etc/sysctl.d
+    state: directory
 
-  - name: increase inotify values
-    become: True
-    become_user: root
-    copy:
-      src: inotify
-      dest: /etc/sysctl.d/40-inotify.conf
-      force: yes
+- name: increase inotify values
+  become: True
+  become_user: root
+  copy:
+    dest: /etc/sysctl.d/40-inotify.conf
+    force: yes
+    mode: "0644"
+    src: inotify
 
-  #- name: make watchman
-    #command: "{{ item }}"
-    #args:
-      #chdir: /home/{{ username }}/src-hub/watchman
-      #creates: /home/{{ username }}/src-hub/watchman/watchman
-    #with_items:
-      #- ./autogen.sh
-      #- ./configure --enable-lenient
-      #- make
+- name: make watchman
+  command: "{{ item }}"
+  args:
+    chdir: /home/{{ username }}/src-hub/watchman
+    creates: /home/{{ username }}/src-hub/watchman/watchman
+  with_items:
+    - ./autogen.sh
+    - ./configure --enable-lenient
+    - make
 
-  #- name: install watchman
-    #become: True
-    #become_user: root
-    #command: make install
-    #args:
-      #chdir: /home/{{ username }}/src-hub/watchman
-      #creates: /usr/local/bin/watchman
-
+- name: install watchman
+  become: True
+  become_user: root
+  command: make install
+  args:
+    chdir: /home/{{ username }}/src-hub/watchman
+    creates: /usr/local/bin/watchman

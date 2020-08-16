@@ -1,26 +1,27 @@
 ---
-  - name: copy default-gems to home dir
-    copy:
-      src: default-gems
-      dest: /home/{{ username }}/.default-gems
+- name: copy default-gems to home dir
+  copy:
+    dest: /home/{{ username }}/.default-gems
+    mode: "0644"
+    src: default-gems
 
-  - name: add asdf-ruby
-    command: asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-    args:
-      creates: /home/{{ username }}/.asdf/plugins/ruby
+- name: add asdf-ruby
+  command: asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+  args:
+    creates: /home/{{ username }}/.asdf/plugins/ruby
 
-  - name: install ruby
-    command: asdf install ruby latest
+- name: install ruby
+  command: asdf install ruby latest
 
-  - name: register latest ruby version
-    command: asdf latest ruby
-    register: latest_ruby
+- name: register latest ruby version
+  command: asdf latest ruby
+  register: latest_ruby
 
-  - name: set global ruby
-    command: asdf global ruby {{latest_ruby.stdout}}
+- name: set global ruby
+  command: asdf global ruby {{latest_ruby.stdout}}
 
-  - name: copy ruby.zsh to oh-muy-=zsh custom dir
-    copy:
-      src: 10-ruby.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
-
+- name: copy ruby.zsh to oh-muy-=zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 10-ruby.zsh

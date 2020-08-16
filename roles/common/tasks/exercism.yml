@@ -1,12 +1,11 @@
 ---
-  - name: ensure the ~/bin directory is present
-    file:
-      path: /home/{{ username }}/bin
-      state: directory
+- name: ensure the ~/bin directory is present
+  file:
+    path: /home/{{ username }}/bin
+    state: directory
 
-  - name: download and unpack the latest release archive
-    unarchive:
-      src: https://github.com/exercism/cli/releases/download/v3.0.13/exercism-3.0.13-linux-x86_64.tar.gz
-      dest: /home/{{ username }}/bin/
-      remote_src: yes
-
+- name: download and unpack the latest release archive
+  unarchive:
+    src: https://github.com/exercism/cli/releases/download/v3.0.13/exercism-3.0.13-linux-x86_64.tar.gz
+    dest: /home/{{ username }}/bin/
+    remote_src: yes

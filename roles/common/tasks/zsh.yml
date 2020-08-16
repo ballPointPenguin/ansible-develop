@@ -1,58 +1,63 @@
 ---
-  - name: ensure the ~/src-hub directory is present
-    file:
-      path: /home/{{ username }}/src-hub
-      state: directory
+- name: ensure the ~/src-hub directory is present
+  file:
+    path: /home/{{ username }}/src-hub
+    state: directory
 
-  - name: clone oh-my-zsh
-    git:
-      repo: https://github.com/robbyrussell/oh-my-zsh.git
-      dest: /home/{{ username }}/src-hub/oh-my-zsh
-      update: no
+- name: clone oh-my-zsh
+  git:
+    dest: /home/{{ username }}/src-hub/oh-my-zsh
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    update: no
 
-  - name: clone dircolors-solarized plugin
-    git:
-      repo: https://github.com/joel-porquet/zsh-dircolors-solarized
-      dest: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins/zsh-dircolors-solarized
+- name: clone dircolors-solarized plugin
+  git:
+    dest: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins/zsh-dircolors-solarized
+    repo: https://github.com/joel-porquet/zsh-dircolors-solarized
 
-  - name: create symlink to oh-my-zsh
-    file:
-      path: /home/{{ username }}/.oh-my-zsh
-      src: /home/{{ username }}/src-hub/oh-my-zsh
-      state: link
+- name: create symlink to oh-my-zsh
+  file:
+    path: /home/{{ username }}/.oh-my-zsh
+    src: /home/{{ username }}/src-hub/oh-my-zsh
+    state: link
 
-  - name: copy alias.zsh to oh-my-zsh custom dir
-    copy:
-      src: 10-alias.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy alias.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 10-alias.zsh
 
-  - name: copy compinstall.zsh to oh-my-zsh custom dir
-    copy:
-      src: 00-compinstall.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy compinstall.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 00-compinstall.zsh
 
-          # Do I need this?
-  - name: copy display.zsh to oh-my-zsh custom dir
-    copy:
-      src: 10-display.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy history.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 10-history.zsh
 
-  - name: copy path.zsh to oh-my-zsh custom dir
-    copy:
-      src: 10-path.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy path.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 10-path.zsh
 
-  - name: copy plugins.zsh to oh-my-zsh custom dir
-    copy:
-      src: 10-plugins.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy plugins.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 10-plugins.zsh
 
-  - name: copy zsh-newuser-install.zsh to oh-my-zsh custom dir
-    copy:
-      src: 10-zsh-newuser-install.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy zsh-newuser-install.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 10-zsh-newuser-install.zsh
 
-  - name: change user shell to zsh
-    become: yes
-    become_user: root
-    command: chsh -s /bin/zsh "{{ username }}"
+- name: change user shell to zsh
+  become: yes
+  become_user: root
+  command: chsh -s /bin/zsh "{{ username }}"

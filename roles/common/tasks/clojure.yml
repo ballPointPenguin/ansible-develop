@@ -1,14 +1,14 @@
 ---
-  - name: ensure the ~/bin directory is present
-    file:
-      path: /home/{{ username }}/bin
-      state: directory
+- name: ensure the ~/bin directory is present
+  file:
+    path: /home/{{ username }}/bin
+    state: directory
 
-  - name: Download lein script
-    get_url:
-      url: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-      dest: /home/{{ username }}/bin/lein
-      mode: 0777
+- name: Download lein script
+  get_url:
+    url: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    dest: /home/{{ username }}/bin/lein
+    mode: 0777
 
-  - name: Run lein to download and self-install package
-    command: /home/{{ username }}/bin/lein
+- name: Run lein to download and self-install package
+  command: /home/{{ username }}/bin/lein

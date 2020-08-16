@@ -1,28 +1,29 @@
 ---
-  - name: ensure the ~/src-hub directory is present
-    file:
-      path: /home/{{ username }}/src-hub
-      state: directory
+- name: ensure the ~/src-hub directory is present
+  file:
+    path: /home/{{ username }}/src-hub
+    state: directory
 
-  - name: clone asdf
-    git:
-      repo: https://github.com/asdf-vm/asdf.git
-      dest: /home/{{ username }}/src-hub/asdf
-      force: yes
-      update: no
-      version: v0.7.6
+- name: clone asdf
+  git:
+    dest: /home/{{ username }}/src-hub/asdf
+    force: yes
+    repo: https://github.com/asdf-vm/asdf.git
+    update: no
+    version: v0.7.6
 
-  - name: create symlink to asdf
-    file:
-      path: /home/{{ username }}/.asdf
-      src: /home/{{ username }}/src-hub/asdf
-      state: link
+- name: create symlink to asdf
+  file:
+    path: /home/{{ username }}/.asdf
+    src: /home/{{ username }}/src-hub/asdf
+    state: link
 
-  - name: copy asdf.zsh to oh-my-zsh custom dir
-    copy:
-      src: 90-asdf.zsh
-      dest: /home/{{ username }}/.oh-my-zsh/custom/
+- name: copy asdf.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 90-asdf.zsh
 
-  - name: update asdf plugins
-    command: asdf plugin-update --all
-    ignore_errors: yes
+- name: update asdf plugins
+  command: asdf plugin-update --all
+  ignore_errors: yes

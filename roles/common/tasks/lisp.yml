@@ -1,48 +1,48 @@
 ---
-  # COMMON LISP
-  - name: add asdf-sbcl
-    command: asdf plugin-add sbcl
-    args:
-      creates: /home/{{ username }}/.asdf/plugins/sbcl
+# COMMON LISP
+- name: add asdf-sbcl
+  command: asdf plugin-add sbcl
+  args:
+    creates: /home/{{ username }}/.asdf/plugins/sbcl
 
-  - name: install lisp
-    command: asdf install sbcl latest
+- name: install lisp
+  command: asdf install sbcl latest
 
-  - name: register latest sbcl version
-    command: asdf latest sbcl
-    register: latest_sbcl
+- name: register latest sbcl version
+  command: asdf latest sbcl
+  register: latest_sbcl
 
-  - name: set global lisp
-    command: asdf global sbcl {{latest_sbcl.stdout}}
+- name: set global lisp
+  command: asdf global sbcl {{latest_sbcl.stdout}}
 
-  # RACKET
-  - name: add asdf-racket
-    command: asdf plugin-add racket
-    args:
-      creates: /home/{{ username }}/.asdf/plugins/racket
+# RACKET
+- name: add asdf-racket
+  command: asdf plugin-add racket
+  args:
+    creates: /home/{{ username }}/.asdf/plugins/racket
 
-  - name: install racket
-    command: asdf install racket latest
+- name: install racket
+  command: asdf install racket latest
 
-  - name: register latest racket version
-    command: asdf latest racket
-    register: latest_racket
+- name: register latest racket version
+  command: asdf latest racket
+  register: latest_racket
 
-  - name: set global racket
-    command: asdf global racket {{latest_racket.stdout}}
+- name: set global racket
+  command: asdf global racket {{latest_racket.stdout}}
 
-  # SCHEME (chicken)
-  - name: add asdf-chicken
-    command: asdf plugin-add chicken
-    args:
-      creates: /home/{{ username }}/.asdf/plugins/chicken
+# SCHEME (chicken)
+- name: add asdf-chicken
+  command: asdf plugin-add chicken
+  args:
+    creates: /home/{{ username }}/.asdf/plugins/chicken
 
-  - name: install (chicken) scheme
-    command: asdf install chicken latest
+- name: install (chicken) scheme
+  command: asdf install chicken latest
 
-  - name: register latest chicken version
-    command: asdf latest chicken
-    register: latest_chicken
+- name: register latest chicken version
+  command: asdf latest chicken
+  register: latest_chicken
 
-  - name: set global chicken
-    command: asdf global chicken {{latest_chicken.stdout}}
+- name: set global chicken
+  command: asdf global chicken {{latest_chicken.stdout}}

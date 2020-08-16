@@ -1,29 +1,24 @@
 ---
-  - name: add asdf-node
-    command: asdf plugin-add nodejs
-    args:
-      creates: /home/{{ username }}/.asdf/plugins/nodejs
+- name: ensure the ~/src-hub directory is present
+  file:
+    path: /home/{{ username }}/src-hub
+    state: directory
 
-  - name: import OpenPGP keys
-    command: bash /home/{{ username }}/.asdf/plugins/nodejs/bin/import-release-team-keyring
+- name: clone zsh-nvm
+  git:
+    dest: /home/{{ username }}/src-hub/zsh-nvm
+    repo: https://github.com/lukechilds/zsh-nvm.git
+    update: no
 
-  - name: install node
-    command: asdf install nodejs latest
+- name: create symlink to oh-my-zsh plugins
+  file:
+    path: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
+    src: /home/{{ username }}/src-hub/zsh-nvm
+    state: link
 
-  - name: register latest node version
-    command: asdf latest nodejs
-    register: latest_node
-
-  - name: set global node
-    command: asdf global nodejs {{latest_node.stdout}}
-
-  - name: ensure .asdfrc file exists
-    file:
-      path: /home/{{ username }}/.asdfrc
-      state: touch
-
-  - name: ensure legacy_version_file support (.node-version or .nvmrc)
-    lineinfile:
-      path: /home/{{ username }}/.asdfrc
-      regexp: '^legacy_version_file'
-      line: 'legacy_version_file = yes'
+- name: copy nvm.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0660"
+    force: yes
+    src: 10-nvm.zsh
