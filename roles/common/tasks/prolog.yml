@@ -6,10 +6,10 @@
 
 - name: install prolog
   command: asdf install swiprolog latest
+# Not working atm
+# - name: register latest prolog version
+#   command: asdf latest swiprolog
+#   register: latest_prolog
 
-- name: register latest prolog version
-  command: asdf latest swiprolog
-  register: latest_prolog
-
-- name: set global prolog
-  command: asdf global swiprolog {{latest_prolog.stdout}}
+# - name: set global prolog
+#   command: asdf global swiprolog {{latest_prolog.stdout}}
