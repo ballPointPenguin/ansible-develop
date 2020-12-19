@@ -1,0 +1,31 @@
+---
+- name: ensure the $HOME/src-hub directory is present
+  file:
+    path: /home/{{ username }}/src-hub
+    state: directory
+
+- name: clone chrome-gnome-shell
+  git:
+    depth: "1"
+    dest: /home/{{ username }}/src-hub/chrome-gnome-shell
+    repo: https://gitlab.gnome.org/GNOME/chrome-gnome-shell.git
+    update: yes
+
+- name: ensure the build directory is present
+  file:
+    path: /home/{{ username }}/src-hub/chrome-gnome-shell/build
+    state: directory
+
+- name: cmake chrome-gnome-shell
+  command: cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_EXTENSION=OFF ../
+  args:
+    chdir: /home/{{ username }}/src-hub/chrome-gnome-shell/build
+    creates: /home/{{ username }}/src-hub/chrome-gnome-shell/build/Makefile
+
+- name: make install chrome-gnome-shell
+  become: True
+  become_user: root
+  command: make install
+  args:
+    chdir: /home/{{ username }}/src-hub/chrome-gnome-shell/build
+    creates: /home/{{ username }}/src-hub/chrome-gnome-shell/build/chrome-gnome-shell

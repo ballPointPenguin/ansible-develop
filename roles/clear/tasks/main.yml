@@ -3,3 +3,6 @@
   become: yes
   become_user: root
   tags: packages
+
+- import_tasks: gnome-shell.yml
+  tags: gnome-shell
