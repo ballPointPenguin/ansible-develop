@@ -30,6 +30,7 @@
     - nodejs-basic
     - obs-studio
     - package-utils
+    - rlwrap
     - ruby-basic
     - rxvt-unicode
     - simplescreenrecorder
