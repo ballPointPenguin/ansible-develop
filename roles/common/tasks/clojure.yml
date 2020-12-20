@@ -11,4 +11,20 @@
     mode: 0777
 
 - name: Run lein to download and self-install package
-  command: /home/{{ username }}/bin/lein
+  command: ./lein
+  args:
+    chdir: /home/{{ username }}/bin
+
+- name: Download clj installer
+  get_url:
+    url: https://download.clojure.org/install/linux-install-1.10.1.763.sh
+    dest: /home/{{ username }}/bin/install-clj.sh
+    mode: 0777
+
+- name: Run clj installer
+  become: True
+  become_user: root
+  command: ./install-clj.sh
+  args:
+    chdir: /home/{{ username }}/bin
+    creates: /usr/local/bin/clj
