@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=urxvt
+GenericName=Terminal Emulator
+Comment=rxvt Unicode terminal
+Keywords=shell;prompt;command;commandline;cmd;
+Categories=GNOME;GTK;System;TerminalEmulator;
+Exec=urxvt
+Icon=org.gnome.Terminal
+Type=Application
+StartupNotify=true
+Terminal=false
+X-GNOME-SingleWindow=false
