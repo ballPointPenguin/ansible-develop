@@ -1,11 +1,16 @@
 plugins+=(
   docker
   emacs
+  fast-syntax-highlighting
   git
   gitignore
+  node
   npm
   rebar
+  rvm
   systemd
   tmux
   vscode
+  zsh-autosuggestions
+  zsh-dircolors-solarized
 )

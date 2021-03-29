@@ -1,0 +1,7 @@
+---
+- name: debian
+  gather_facts: no
+  hosts: local
+  roles:
+    - debian
+    - common

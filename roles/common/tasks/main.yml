@@ -7,18 +7,12 @@
 - import_tasks: asdf.yml
   tags: asdf
 
-- import_tasks: chrome.yml
-  tags: chrome
 - import_tasks: clojure.yml
   tags: clojure
 - import_tasks: elixir.yml
   tags: elixir
 - import_tasks: exercism.yml
   tags: exercism
-- import_tasks: flatpak.yml
-  tags: flatpak
-- import_tasks: gcloud.yml
-  tags: gcloud
 - import_tasks: git.yml
   tags: git
 - import_tasks: lisp.yml
@@ -29,6 +23,8 @@
   tags: prolog
 - import_tasks: ruby.yml
   tags: ruby
+- import_tasks: tmux.yml
+  tags: tmux
 - import_tasks: vim.yml
   tags: vim
 - import_tasks: watchman.yml
@@ -39,8 +35,15 @@
   become: yes
   become_user: root
   tags: docker
-
 - import_tasks: hostname.yml
   become: yes
   become_user: root
   tags: hostname
+
+# Optional
+# - import_tasks: chrome.yml
+#   tags: chrome
+# - import_tasks: flatpak.yml
+#   tags: flatpak
+# - import_tasks: gcloud.yml
+#   tags: gcloud

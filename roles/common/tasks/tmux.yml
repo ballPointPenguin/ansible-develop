@@ -1,0 +1,8 @@
+---
+# This configuration requires at least tmux version 3
+- name: copy tmux.conf to home dir
+  copy:
+    dest: /home/{{ username }}/.tmux.conf
+    mode: "0644"
+    src: tmux.conf
+    

@@ -1,12 +1,7 @@
 ---
-- name: ensure the plugins directory is present
-  file:
-    path: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins
-    state: directory
-
 - name: clone zsh-nvm
   git:
-    dest: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins/zsh-nvm
+    dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-nvm
     repo: https://github.com/lukechilds/zsh-nvm.git
     update: no
 

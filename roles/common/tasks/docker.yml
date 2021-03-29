@@ -17,8 +17,11 @@
     mode: "0644"
     src: daemon.json
 
-- name: enable docker service
-  service:
-    enabled: yes
-    name: docker
-    state: started
+# Install Docker Desktop for Windows with WSL 2 integration
+# if on WSL 2 machine.
+
+# - name: enable docker service
+#   service:
+#     enabled: yes
+#     name: docker
+#     state: started

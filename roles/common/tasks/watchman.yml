@@ -4,44 +4,46 @@
     path: /home/{{ username }}/src-hub
     state: directory
 
-- name: clone watchman
-  git:
-    depth: "1"
-    dest: /home/{{ username }}/src-hub/watchman
-    repo: https://github.com/facebook/watchman.git
-    update: no
-    version: v4.9.0
+- name: download & unzip wathcman
+  unarchive:
+    src: https://github.com/facebook/watchman/releases/download/v2021.03.29.00/watchman-v2021.03.29.00-linux.zip
+    dest: /home/{{ username }}/src-hub/
+    remote_src: yes
 
-- name: ensure the /etc/sysctl.d directory is present
-  become: True
+- name: ensure the /usr/local/var/run/watchman directory is present
+  become: yes
   become_user: root
   file:
-    path: /etc/sysctl.d
+    mode: '2777'
+    path: /usr/local/var/run/watchman
     state: directory
 
-- name: increase inotify values
-  become: True
+- name: copy the wathcman bin files
+  become: yes
   become_user: root
   copy:
-    dest: /etc/sysctl.d/40-inotify.conf
-    force: yes
-    mode: "0644"
-    src: inotify
+    src: /home/{{ username }}/src-hub/watchman-v2021.03.29.00-linux/bin/
+    dest: /usr/local/bin/
 
-- name: make watchman
-  command: "{{ item }}"
-  args:
-    chdir: /home/{{ username }}/src-hub/watchman
-    creates: /home/{{ username }}/src-hub/watchman/watchman
-  with_items:
-    - ./autogen.sh
-    - ./configure --enable-lenient
-    - make
-
-- name: install watchman
-  become: True
+- name: copy the watchman lib files
+  become: yes
   become_user: root
-  command: make install
-  args:
-    chdir: /home/{{ username }}/src-hub/watchman
-    creates: /usr/local/bin/watchman
+  copy:
+    src: /home/{{ username }}/src-hub/watchman-v2021.03.29.00-linux/lib/
+    dest: /usr/local/lib/
+
+- name: set mode for watchman binary
+  become: yes
+  become_user: root
+  file:
+    path: /usr/local/bin/watchman
+    mode: '755'
+
+# - name: increase inotify values
+#   become: True
+#   become_user: root
+#   copy:
+#     dest: /etc/sysctl.d/40-inotify.conf
+#     force: yes
+#     mode: "0644"
+#     src: inotify

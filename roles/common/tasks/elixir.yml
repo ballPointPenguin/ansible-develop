@@ -52,4 +52,4 @@
   command: mix local.hex --force
 
 - name: install/update phoenix
-  command: mix archive.install hex phx_new 1.4.12
+  command: mix archive.install hex phx_new 1.5.8

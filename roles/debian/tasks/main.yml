@@ -1,0 +1,10 @@
+---
+- import_tasks: sources.yml
+  become: yes
+  become_user: root
+  tags: packages
+
+- import_tasks: packages.yml
+  become: yes
+  become_user: root
+  tags: packages

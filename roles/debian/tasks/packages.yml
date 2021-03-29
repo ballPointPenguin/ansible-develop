@@ -1,0 +1,57 @@
+---
+- name: upgrade the OS (apt-get dist-upgrade)
+  apt:
+    upgrade: dist
+
+- name: update the package cache (apt-get update)
+  apt:
+    update_cache: yes
+
+- name: install a list of packages
+  apt:
+    pkg:
+    - ack
+    - aptitude
+    - autoconf
+    - automake
+    - bison
+    - build-essential
+    - clang
+    - cmake
+    - curl
+    - git
+    - git-svn
+    - htop
+    - jq
+    - libarchive-dev
+    - libgmp-dev
+    - libncurses-dev
+    - libossp-uuid-dev
+    - libreadline-dev
+    - libssl-dev
+    - libunwind-dev
+    - lsof
+    - make
+    - openjdk-11-jdk
+    - openssh-server
+    - patch
+    - python3-pip
+    - rlwrap
+    - sqlite
+    - texlive-full
+    - traceroute
+    - tree
+    - unzip
+    - wget
+    - xclip
+    - zlib1g-dev
+    - zsh
+
+- name: install packages from backports
+  apt:
+    name: "{{ packages }}"
+    default_release: buster-backports
+    state: latest
+  vars:
+    packages:
+    - tmux

@@ -10,7 +10,7 @@
     force: yes
     repo: https://github.com/asdf-vm/asdf.git
     update: no
-    version: v0.7.6
+    version: v0.8.0
 
 - name: create symlink to asdf
   file:
@@ -24,6 +24,8 @@
     mode: "0644"
     src: 90-asdf.zsh
 
-- name: update asdf plugins
-  command: asdf plugin-update --all
-  ignore_errors: yes
+#- name: update asdf plugins
+#  command: .asdf/bin/asdf plugin-update --all
+#  ignore_errors: yes
+#  args:
+#    chdir: /home/{{ username }}/

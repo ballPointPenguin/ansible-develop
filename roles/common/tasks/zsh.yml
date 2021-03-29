@@ -1,25 +1,40 @@
 ---
+- name: ensure the ~/bin directory is present
+  file:
+    path: /home/{{ username }}/bin
+    state: directory
+
 - name: ensure the ~/src-hub directory is present
   file:
     path: /home/{{ username }}/src-hub
     state: directory
 
-- name: clone oh-my-zsh
-  git:
-    dest: /home/{{ username }}/src-hub/oh-my-zsh
-    repo: https://github.com/robbyrussell/oh-my-zsh.git
-    update: no
+- name: download oh-my-zsh script
+  get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /home/{{ username }}/bin/oh-my-zsh.sh
+    mode: 0777
+
+- name: run the oh-my-zsh install script
+  command: ./oh-my-zsh.sh
+  args:
+    chdir: /home/{{ username }}/bin
+    creates: /home/{{ username }}/.oh-my-zsh
 
 - name: clone dircolors-solarized plugin
   git:
-    dest: /home/{{ username }}/src-hub/oh-my-zsh/custom/plugins/zsh-dircolors-solarized
+    dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized
     repo: https://github.com/joel-porquet/zsh-dircolors-solarized
 
-- name: create symlink to oh-my-zsh
-  file:
-    path: /home/{{ username }}/.oh-my-zsh
-    src: /home/{{ username }}/src-hub/oh-my-zsh
-    state: link
+- name: clone zsh-autosuggestions plugin
+  git:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+
+- name: clone fast-syntax-highlighting plugin
+  git:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/plugins/fast-syntax-highlighting
+    repo: https://github.com/zdharma/fast-syntax-highlighting
 
 - name: copy alias.zsh to oh-my-zsh custom dir
   copy:
