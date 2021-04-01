@@ -1,4 +1,3 @@
-alias ack="ag"
 alias es="ember server"
 alias gbh="git branch | head"
 alias gcmfp="git checkout master && git fetch -p --all && git pull"

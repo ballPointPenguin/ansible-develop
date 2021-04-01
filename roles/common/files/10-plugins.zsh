@@ -7,7 +7,6 @@ plugins+=(
   node
   npm
   rebar
-  rvm
   systemd
   tmux
   vscode
