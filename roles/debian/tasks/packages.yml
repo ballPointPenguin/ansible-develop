@@ -42,6 +42,7 @@
     - traceroute
     - tree
     - unzip
+    - vim
     - wget
     - xclip
     - zlib1g-dev
