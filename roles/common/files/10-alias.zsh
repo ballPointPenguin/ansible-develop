@@ -11,5 +11,6 @@ alias nomp="rm package-lock.json; rm -rf node_modules; npm cache verify; npm ins
 # alias tmux="TERM=xterm-256color tmux"
 alias path='echo $PATH | tr -s ":" "\n"'
 alias reload="exec $SHELL -l"
+alias rwjb="ember test --server --test-port=0 --no-live-reload --no-launcher"
 alias yom="rm -rf node_modules; yarn cache clean; yarn"
 alias zomg="git add . && git stash && git stash drop"
