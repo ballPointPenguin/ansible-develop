@@ -27,6 +27,7 @@
     - libgmp-dev
     - libncurses-dev
     - libossp-uuid-dev
+    - libpq-dev
     - libreadline-dev
     - libssl-dev
     - libunwind-dev
