@@ -36,6 +36,8 @@
     - openjdk-11-jdk
     - openssh-server
     - patch
+    - postgresql
+    - postgresql-contrib
     - python3-pip
     - rlwrap
     - sqlite
