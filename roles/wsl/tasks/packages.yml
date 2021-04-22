@@ -1,0 +1,9 @@
+---
+- name: update the package cache (apt-get update)
+  apt:
+    update_cache: yes
+
+- name: install a list of packages
+  apt:
+    pkg:
+    - wslu

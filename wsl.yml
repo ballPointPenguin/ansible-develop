@@ -1,0 +1,8 @@
+---
+- name: wsl
+  gather_facts: no
+  hosts: local
+  roles:
+    - debian
+    - common
+    - wsl

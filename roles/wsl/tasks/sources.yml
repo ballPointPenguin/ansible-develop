@@ -1,0 +1,30 @@
+---
+- name: install required packages
+  apt:
+    pkg:
+    - gnupg2
+    - apt-transport-https
+
+- name: ensure keys directory exists
+  file:
+    path: /var/keys
+    state: directory
+
+- name: get wslu package signing key
+  get_url:
+    url: https://access.patrickwu.space/wslu/public.asc
+    dest: /var/keys/wslu-public.asc
+  register: wslu_key
+
+- name: add gpg key for wslu repo
+  command: apt-key add '/var/keys/wslu-public.asc'
+  when: wslu_key.changed
+
+- name: add wslu repo to sources
+  apt_repository:
+    repo: deb https://access.patrickwu.space/wslu/debian buster main
+    state: present
+
+- name: update the package cache (apt-get update)
+  apt:
+    update_cache: yes
