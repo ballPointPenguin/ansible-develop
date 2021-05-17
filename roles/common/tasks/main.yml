@@ -43,7 +43,5 @@
 # Optional
 # - import_tasks: chrome.yml
 #   tags: chrome
-# - import_tasks: flatpak.yml
-#   tags: flatpak
 # - import_tasks: gcloud.yml
 #   tags: gcloud

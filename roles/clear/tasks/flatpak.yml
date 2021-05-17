@@ -21,7 +21,7 @@
     - com.getpostman.Postman
     - com.skype.Client
     - com.slack.Slack
-    - com.visualstudio.code
+    #- com.visualstudio.code
     - org.audacityteam.Audacity
     - org.filezillaproject.Filezilla
     - org.gimp.GIMP

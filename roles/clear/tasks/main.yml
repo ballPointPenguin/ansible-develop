@@ -6,3 +6,6 @@
 
 - import_tasks: gnome-shell.yml
   tags: gnome-shell
+
+- import_tasks: flatpak.yml
+  tags: flatpak
