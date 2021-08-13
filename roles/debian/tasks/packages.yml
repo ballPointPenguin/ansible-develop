@@ -26,6 +26,7 @@
     - libarchive-dev
     - libgmp-dev
     - libncurses-dev
+    - libncurses5-dev
     - libossp-uuid-dev
     - libpq-dev
     - libreadline-dev
