@@ -8,3 +8,10 @@
   become: yes
   become_user: root
   tags: packages
+
+- import_tasks: erlang-packages.yml
+  become: yes
+  become_user: root
+  tags:
+    - packages
+    - erlang
