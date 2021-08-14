@@ -26,7 +26,6 @@
     - libarchive-dev
     - libgmp-dev
     - libncurses-dev
-    - libncurses5-dev
     - libossp-uuid-dev
     - libpq-dev
     - libreadline-dev
@@ -41,7 +40,7 @@
     - pkg-config
     - postgresql
     - postgresql-contrib
-    - pytonn-dev
+    - python-dev
     - python3-dev
     - python3-pip
     - rlwrap
