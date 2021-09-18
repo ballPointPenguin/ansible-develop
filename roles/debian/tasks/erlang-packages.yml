@@ -16,21 +16,21 @@
 - name: install a list of packages
   apt:
     pkg:
-    - autoconf
-    - build-essential
-    - erlang-inets
-    - erlang-os-mon
-    - erlang-runtime-tools
-    - erlang-ssl
-    - fop
-    - libgl1-mesa-dev
-    - libglu1-mesa-dev
-    - libncurses-dev
-    - libncurses5-dev
-    - libpng-dev
-    - libssh-dev
-    - libwxgtk3.0-dev
-    - libxml2-utils
-    - openjdk-11-jdk
-    - xsltproc
-    
+      - autoconf
+      - build-essential
+      - erlang-inets
+      - erlang-os-mon
+      - erlang-runtime-tools
+      - erlang-ssl
+      - fop
+      - inotify-tools
+      - libgl1-mesa-dev
+      - libglu1-mesa-dev
+      - libncurses-dev
+      - libncurses5-dev
+      - libpng-dev
+      - libssh-dev
+      - libwxgtk3.0-dev
+      - libxml2-utils
+      - openjdk-11-jdk
+      - xsltproc
