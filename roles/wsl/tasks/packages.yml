@@ -6,4 +6,6 @@
 - name: install a list of packages
   apt:
     pkg:
+    - man-db
+    - manpages-dev
     - wslu

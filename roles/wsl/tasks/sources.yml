@@ -1,3 +1,4 @@
+# https://github.com/wslutilities/wslu#debian
 ---
 - name: install required packages
   apt:
@@ -12,7 +13,7 @@
 
 - name: get wslu package signing key
   get_url:
-    url: https://access.patrickwu.space/wslu/public.asc
+    url: https://pkg.wslutiliti.es/public.key
     dest: /var/keys/wslu-public.asc
   register: wslu_key
 
@@ -22,7 +23,7 @@
 
 - name: add wslu repo to sources
   apt_repository:
-    repo: deb https://access.patrickwu.space/wslu/debian buster main
+    repo: deb https://pkg.wslutiliti.es/debian buster main
     state: present
 
 - name: update the package cache (apt-get update)
