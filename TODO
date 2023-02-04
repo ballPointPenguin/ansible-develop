@@ -1,2 +1,6 @@
 create 10-wsl.zsh file
 wslu installation https://github.com/wslutilities/wslu
+upgrade buster to bullseye on WSL
+set up emacs on WSL
+remove Heroku
+make sure any postgres is at least v13
