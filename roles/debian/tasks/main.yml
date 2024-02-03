@@ -1,17 +1,21 @@
 ---
 - import_tasks: sources.yml
-  become: yes
+  become: true
   become_user: root
   tags: packages
 
 - import_tasks: packages.yml
-  become: yes
+  become: true
   become_user: root
   tags: packages
 
 - import_tasks: erlang-packages.yml
-  become: yes
+  become: true
   become_user: root
   tags:
     - packages
     - erlang
+
+- import_tasks: python.yml
+  tags:
+    - python

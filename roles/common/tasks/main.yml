@@ -32,11 +32,11 @@
 
 # Root required
 - import_tasks: docker.yml
-  become: yes
+  become: true
   become_user: root
   tags: docker
 - import_tasks: hostname.yml
-  become: yes
+  become: true
   become_user: root
   tags: hostname
 

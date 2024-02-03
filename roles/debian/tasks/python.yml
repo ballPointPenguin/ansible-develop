@@ -1,0 +1,62 @@
+---
+- name: update the package cache (apt-get update)
+  become: True
+  become_user: root
+  apt:
+    update_cache: yes
+
+- name: install a list of packages
+  become: True
+  become_user: root
+  apt:
+    pkg:
+    - build-essential
+    - curl
+    - git
+    - libbz2-dev
+    - libffi-dev
+    - liblzma-dev
+    - libncurses5-dev
+    - libncursesw5-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - llvm
+    - make
+    - python3-openssl
+    - tk-dev
+    - wget
+    - xz-utils
+    - zlib1g-dev
+
+- name: install pyenv
+  shell: curl https://pyenv.run | bash
+  args:
+    creates: /home/{{ username }}/.pyenv
+    executable: /bin/bash
+    warn: no
+
+- name: copy pyenv.zsh to oh-my-zsh custom dir
+  copy:
+    dest: /home/{{ username }}/.oh-my-zsh/custom/
+    mode: "0644"
+    src: 20-pyenv.zsh
+
+- name: install python 3.12.1
+  shell: |
+    source ~/.oh-my-zsh/custom/20-pyenv.zsh
+    pyenv install 3.12.1
+    pyenv global 3.12.1
+  args:
+    executable: /bin/zsh
+    warn: no
+
+# using pyenv, install pipenv
+- name: install pipenv
+  shell: |
+    source ~/.oh-my-zsh/custom/20-pyenv.zsh
+    pip install --user pipenv
+  args:
+    executable: /bin/zsh
+    warn: no
+
